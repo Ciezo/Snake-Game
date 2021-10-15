@@ -47,8 +47,15 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        
-        
+        e.getSource(); 
+        e.getID(); 
+
+        // PLAY Button 
+        if (e.getSource() == gui.playB) {
+            System.out.println("CLICKED: Play button");
+
+            gui.init_and_prepGameplayW(); 
+        }
     }
 
     @Override

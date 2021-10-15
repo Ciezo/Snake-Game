@@ -20,17 +20,22 @@ public class SnakeGame {
     JPanel home_panel;                     // For the main menu or home page of the game 
     JPanel gameplay;                        // For the gameplay screen 
 
-    // Create instance for JLabel 
+    // Create instance for JLabel and JButtons 
     /** For Main Window */
-    JLabel main_windowBG;
-    JLabel titleCard;  
-    JLabel play;
-    JLabel about;
-    JLabel exit; 
+        JLabel main_windowBG;
+        JLabel titleCard;  
+        JLabel play;
+        JLabel about;
+        JLabel exit; 
 
-    JButton playB; 
-    JButton aboutB;
-    JButton exitB;
+        JButton playB; 
+        JButton aboutB;
+        JButton exitB;
+    
+    /** For Gameplay Window */ 
+        JLabel gameplayBG; 
+
+
  
     public SnakeGame() {
 
@@ -122,6 +127,19 @@ public class SnakeGame {
 
         icon.setIcon(frameIcon); 
         main_frame.setIconImage(frameIcon.getImage()); 
+    }
+
+    public void init_and_prepGameplayW() {
+        gameplay = new JPanel(); 
+
+        main_frame.remove(main_windowBG);
+        main_frame.remove(titleCard); 
+        main_frame.remove(playB);
+        main_frame.remove(aboutB);
+        main_frame.remove(exitB); 
+        main_frame.remove(home_panel);
+        main_frame.setSize(width, height);
+        main_frame.repaint();
     }
 
     public void actionCommanders() {
