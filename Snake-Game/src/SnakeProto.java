@@ -79,8 +79,8 @@ public class SnakeProto extends JPanel implements ActionListener{
    
     public void move(){
         for(int i = bodyParts;i>0;i--){
-            x[i] = x[1-i];
-            y[i] = y[1-i];
+            x[i] = x[i-1];
+            y[i] = y[i-1];
         }
 
         switch(direction) {
@@ -182,4 +182,7 @@ public class SnakeProto extends JPanel implements ActionListener{
         }
     }
     
+    public static void main(String[] args) {
+        new SnakeProto();
+    }
 }
