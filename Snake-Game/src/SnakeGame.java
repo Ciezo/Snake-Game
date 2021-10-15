@@ -44,7 +44,7 @@ public class SnakeGame {
         actionCommanders();
 
         // Call the listeners 
-        // fetchAllListeners();
+        fetchAllListeners();
 
         // Pack the frame and set to be visible on run 
         main_frame.pack(); 
@@ -125,13 +125,18 @@ public class SnakeGame {
     }
 
     public void actionCommanders() {
+        // Set action command to these buttons 
         playB.setActionCommand("Play");
         aboutB.setActionCommand("About");
         exitB.setActionCommand("Exit"); 
+
     }
 
     public void fetchAllListeners () { 
-        
+        // Add mouse listener to these buttons 
+        playB.addMouseListener(handler); 
+        aboutB.addMouseListener(handler);
+        exitB.addMouseListener(handler);
     }
 
 }
