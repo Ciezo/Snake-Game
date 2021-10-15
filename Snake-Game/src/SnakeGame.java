@@ -25,6 +25,10 @@ public class SnakeGame implements ActionListener, MouseListener, MouseMotionList
     JLabel about;
     JLabel exit; 
 
+    JButton playB; 
+    JButton aboutB;
+    JButton exitB;
+ 
     public SnakeGame() {
 
         // Call the dedicated function initializer to set and prepare our main menu frame 
@@ -33,8 +37,11 @@ public class SnakeGame implements ActionListener, MouseListener, MouseMotionList
         // Call the window icon setter 
         setWindowIcon(); 
 
+        // Call Action commanders 
+        // actionCommanders();
+
         // Call the listeners 
-        fetchAllListeners();
+        // fetchAllListeners();
 
         // Pack the frame and set to be visible on run 
         main_frame.pack(); 
@@ -43,7 +50,7 @@ public class SnakeGame implements ActionListener, MouseListener, MouseMotionList
     }
 
 
-    public void init_mainW () { 
+    public void init_mainW() { 
         main_frame = new JFrame(); 
         home_panel = new JPanel(); 
         
@@ -51,24 +58,69 @@ public class SnakeGame implements ActionListener, MouseListener, MouseMotionList
 
         main_windowBG = new JLabel(new ImageIcon("assets/backgrounds/main_window-BG.png")); 
         titleCard = new JLabel(new ImageIcon("assets/backgrounds/title_card.png")); 
-        play = new JLabel(new ImageIcon("assets/icons/play.png"));
-        about = new JLabel(new ImageIcon("assets/icons/about.png"));
-        exit = new JLabel(new ImageIcon("assets/icons/exit.png"));
+        
+        // Acting buttons using custom images found in the icons dir 
+        /** These instances are using JLabel */ 
+            // play = new JLabel(new ImageIcon("assets/icons/play.png"));
+            // about = new JLabel(new ImageIcon("assets/icons/about.png"));
+            // exit = new JLabel(new ImageIcon("assets/icons/exit.png"));
+
+        /** Meanwhile, these instances are going to use JButton which is much preferred. So, let's test it! */
+            // Set the ImageIcon
+            ImageIcon play_ico = new ImageIcon("assets/icons/play.png");
+            ImageIcon about_ico = new ImageIcon("assets/icons/about.png");
+            ImageIcon exit_ico = new ImageIcon("assets/icons/exit.png"); 
+            
+            // Set the buttons to embed the ImageIcon 
+            playB = new JButton(play_ico); 
+            aboutB = new JButton(about_ico); 
+            exitB = new JButton(exit_ico); 
+
+            // Modify the default look of JButton; set all of it be invisible, remove borders, and set opaque 
+            playB.setOpaque(false);         // make invisible
+            aboutB.setOpaque(false);        // make invisible
+            exitB.setOpaque(false);         // make invisible 
+
+            playB.setContentAreaFilled(false); 
+            aboutB.setContentAreaFilled(false);
+            exitB.setContentAreaFilled(false);
+
+            playB.setBorderPainted(false); 
+            aboutB.setBorderPainted(false);
+            exitB.setBorderPainted(false);
+
+            playB.setFocusPainted(false); 
+            aboutB.setFocusPainted(false);
+            exitB.setFocusPainted(false);
+
+
 
         home_panel.add(main_windowBG); 
         home_panel.add(titleCard); 
-        home_panel.add(play); 
-        home_panel.add(about);
-        home_panel.add(exit); 
+        
+        home_panel.add(playB);
+        home_panel.add(aboutB);
+        home_panel.add(exitB); 
+
+        // Adding the acting JLabels as "buttons" to the home_panel 
+        // home_panel.add(play); 
+        // home_panel.add(about);
+        // home_panel.add(exit); 
+
+        // Finally, add the modified components to our frame 
         main_frame.add(home_panel); 
     }
 
-    public void setWindowIcon () { 
+    public void setWindowIcon() { 
         JLabel icon = new JLabel("Window icon"); 
         ImageIcon frameIcon = new ImageIcon("assets/items/apples/100x100/apple2.png");   
 
         icon.setIcon(frameIcon); 
         main_frame.setIconImage(frameIcon.getImage()); 
+    }
+
+    public void actionCommanders() {
+        
     }
 
     public void fetchAllListeners () { 
