@@ -34,7 +34,8 @@ public class SnakeGame {
     
     /** For Gameplay Window */ 
         JLabel gameplayBG; 
-
+        JPanel dashboard_container; 
+        JLabel dashboard; 
 
  
     public SnakeGame() {
@@ -145,15 +146,26 @@ public class SnakeGame {
         // Create a new instance for the gameplay JPanel
         gameplay = new JPanel(); 
         
-        // Fetch the custom image to act as background 
+        // Create a new instance for the dashboard container panel
+        dashboard_container = new JPanel(); 
+        
+        // Fetch the custom image to act as background for the gameplay panel  
         gameplayBG = new JLabel(new ImageIcon("assets/backgrounds/grass_biome-BG_lv1.png")); 
+        
+        // Fetch and set image to the dashboard to be which added to the dashboard_container panel 
+        dashboard = new JLabel(new ImageIcon("assets/dashboard/dashboard.png")); 
 
-        // Add the set background image to the gameplay panel 
-        gameplay.add(gameplayBG); 
+        // Add dashboard to dashboard_container panel 
+        dashboard_container.add(dashboard); 
+
+        // Add components to the gameplay panel  
+        gameplay.add(gameplayBG);                   // add the custom and modified background graphic
+        gameplay.add(dashboard_container);          // now, add the customized dashboard and everything about it 
 
         // Add the gameplay panel to the main frame 
         main_frame.add(gameplay); 
         
+
         // Repaint the main frame 
         main_frame.repaint();
     }
