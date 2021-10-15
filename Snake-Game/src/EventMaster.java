@@ -6,7 +6,7 @@ import java.awt.event.*;
 public class EventMaster extends JFrame implements ActionListener, MouseListener, MouseMotionListener, KeyListener{
 
     SnakeGame gui; 
-
+    public String commander; 
 
     public EventMaster(SnakeGame gui) {
         this.gui = gui;
@@ -54,7 +54,9 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
         if (e.getSource() == gui.playB) {
             System.out.println("CLICKED: Play button");
 
+            System.out.println("Preparing and initializing Gameplay");
             gui.init_and_prepGameplayW(); 
+            gui.setGamePlay();
         }
     }
 
@@ -142,8 +144,30 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        e.getSource(); 
+        e.getID(); 
+        System.out.println(e.getSource());
+        System.out.println(e.getID());
         
-        
+        commander = e.getActionCommand(); 
+        switch (commander) {
+
+            /** HOME PANEL */
+                case "Play":
+                    System.out.println("Action performed: Play button");
+                    
+                    System.out.println("Setting Gameplay Frame");
+                    System.out.println("Fetching images and assets files"); 
+                    gui.setGamePlay(); 
+                    break;  
+
+                case "About":
+                
+                    break; 
+                case "Exit":
+            
+                break; 
+        }
     }
 
 }

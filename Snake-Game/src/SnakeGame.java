@@ -130,15 +130,31 @@ public class SnakeGame {
     }
 
     public void init_and_prepGameplayW() {
-        gameplay = new JPanel(); 
-
-        main_frame.remove(main_windowBG);
-        main_frame.remove(titleCard); 
-        main_frame.remove(playB);
-        main_frame.remove(aboutB);
-        main_frame.remove(exitB); 
+        // Remove the old components from the main_frame 
         main_frame.remove(home_panel);
+        
+        // Set a new size for the new instance to hold the gameplay panel 
         main_frame.setSize(width, height);
+        
+        
+        // Repaint the main_frame 
+        main_frame.repaint();
+    }
+    
+    public void setGamePlay() {
+        // Create a new instance for the gameplay JPanel
+        gameplay = new JPanel(); 
+        
+        // Fetch the custom image to act as background 
+        gameplayBG = new JLabel(new ImageIcon("assets/backgrounds/grass_biome-BG_lv1.png")); 
+
+        // Add the set background image to the gameplay panel 
+        gameplay.add(gameplayBG); 
+
+        // Add the gameplay panel to the main frame 
+        main_frame.add(gameplay); 
+        
+        // Repaint the main frame 
         main_frame.repaint();
     }
 
@@ -155,6 +171,11 @@ public class SnakeGame {
         playB.addMouseListener(handler); 
         aboutB.addMouseListener(handler);
         exitB.addMouseListener(handler);
+
+        // Add action listener to these buttons 
+        playB.addActionListener(handler); 
+        aboutB.addActionListener(handler); 
+        exitB.addActionListener(handler); 
     }
 
 }
