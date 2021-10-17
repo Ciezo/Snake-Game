@@ -20,6 +20,9 @@ public class SnakeProto extends JPanel implements ActionListener{
     Timer timer;
     Random random;
 
+    // Apply and implement custom background 
+    JLabel gameBG; 
+
     SnakeProto() {
         random = new Random();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
@@ -27,6 +30,11 @@ public class SnakeProto extends JPanel implements ActionListener{
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
         startGame();
+
+        // Initialize gameplay background
+        // "assets/backgrounds/grass_biome-BG_lv1.png"
+        gameBG = new JLabel(new ImageIcon("assets/backgrounds/grass_biome-BG_lv1.png"));
+        // this.add(gameBG); 
     }
 
     public void startGame(){
