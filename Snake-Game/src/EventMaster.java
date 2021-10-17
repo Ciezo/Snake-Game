@@ -18,41 +18,35 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
     @Override
     public void keyTyped(KeyEvent e) {
         
-        
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        
-        
+           
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        
         
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         
-        
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
         
-        
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
         
     }
 
@@ -70,7 +64,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
             gui.setGamePlay();
         }
         
-    }
+    } 
 
     @Override
     public void mouseEntered(MouseEvent e) {

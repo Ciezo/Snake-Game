@@ -11,7 +11,7 @@ public class SnakeProto extends JPanel implements ActionListener{
     static final int DELAY = 75;
     final int x[] = new int[GAME_UNITS];
     final int y[] = new int[GAME_UNITS];
-    int bodyParts = 6;
+    int bodyParts = 5;                              // set how long the body size 
     int applesEaten;
     int appleX;
     int appleY;
@@ -54,11 +54,14 @@ public class SnakeProto extends JPanel implements ActionListener{
 
             for(int i = 0;i < bodyParts;i++) {
                 if(i == 0) {
-                    g.setColor(Color.green);
+                    // Set the color of head
+                    g.setColor(Color.CYAN);                     
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 }
                 else {
-                    g.setColor(new Color(45,180,0));
+                    // Set the color of the body
+                    // g.setColor(new Color(45,180,0));
+                    g.setColor(Color.blue);
                     g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                 }
             }
