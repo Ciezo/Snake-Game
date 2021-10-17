@@ -165,7 +165,7 @@ public class SnakeGame {
         // Add the gameplay panel to the main frame 
         main_frame.add(gameplay); 
         
-
+        
         // Repaint the main frame 
         main_frame.repaint();
     }
