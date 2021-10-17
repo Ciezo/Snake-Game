@@ -156,7 +156,9 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                     break;  
 
                 case "About":
-                
+                    System.out.println("Attempting to show and pop About and Instructions message");
+                    gui.handleAbout();
+
                     break; 
                 case "Exit":
             

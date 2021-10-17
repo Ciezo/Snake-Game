@@ -170,6 +170,17 @@ public class SnakeGame {
         main_frame.repaint();
     }
 
+    public void handleAbout() {
+        // Message 
+        String message = "Eat some apples to which will be randomly generated across the screen! Avoid getting hit on the walls and do not bite yourself ";
+
+        // Beep 
+        Toolkit.getDefaultToolkit().beep();
+
+        // Pop-up some message dialog for information 
+        JOptionPane.showMessageDialog(null, message, "About and Instructions", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public void actionCommanders() {
         // Set action command to these buttons 
         playB.setActionCommand("Play");
