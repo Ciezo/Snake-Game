@@ -20,8 +20,17 @@ public class SnakeProto extends JPanel implements ActionListener{
     Timer timer;
     Random random;
 
+    // For rendering or painting the image to be used as background 
+    Image img; 
+
     // Apply and implement custom background 
-    JLabel gameBG; 
+    /** NOTE: A BETTER IMPLEMENTATION HAS BEEN APPLIED,
+     *        We now use the paintComponent method to render 
+     *        the image to be used as a background 
+     * 
+     * @note The fix can be found within the fetch branch of the official repository
+     */
+    // JLabel gameBG; 
 
     SnakeProto() {
         random = new Random();
@@ -30,11 +39,18 @@ public class SnakeProto extends JPanel implements ActionListener{
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
         startGame();
+        
+        // Initialize the Image to be rendered        
+        img = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/grass_biome-BG_lv1.png");
 
+
+
+        // @deprecated 
         // Initialize gameplay background
-        // "assets/backgrounds/grass_biome-BG_lv1.png"
-        gameBG = new JLabel(new ImageIcon("assets/backgrounds/grass_biome-BG_lv1.png"));
-        // this.add(gameBG); 
+            // "assets/backgrounds/grass_biome-BG_lv1.png"
+                /** LABEL TO BACKGROUND */                
+                    // gameBG = new JLabel(new ImageIcon("assets/backgrounds/grass_biome-BG_lv1.png"));
+                    // this.add(gameBG); 
     }
 
     public void startGame(){
@@ -50,6 +66,10 @@ public class SnakeProto extends JPanel implements ActionListener{
     }
 
     public void draw(Graphics g){
+
+        // Render the img object
+        g.drawImage(img, 0, 0, null); 
+
         if(running) {
 
 
@@ -78,6 +98,7 @@ public class SnakeProto extends JPanel implements ActionListener{
             FontMetrics metrics = getFontMetrics(g.getFont());
             g.drawString("Score: " +applesEaten, (SCREEN_WIDTH - metrics.stringWidth("Score: " +applesEaten))/2, g.getFont().getSize());
         }
+
         else {
             gameOver(g);
             System.out.println("The snake died! To restart, please press n"); 
