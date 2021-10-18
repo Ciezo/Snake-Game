@@ -80,6 +80,36 @@ public class SnakeProto extends JPanel implements ActionListener{
         }
         else {
             gameOver(g);
+            System.out.println("The snake died! To restart, please press n"); 
+            this.addKeyListener(new KeyListener() {
+
+                @Override
+                public void keyTyped(KeyEvent e) {
+                }
+                
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    System.out.println(e.getModifiersEx()); 
+                    System.out.println(e.getKeyCode());
+                    System.out.println(e.getKeyChar());
+                    int key = e.getKeyCode(); 
+
+                    if (key == KeyEvent.VK_N) {
+                        System.out.println("Restarting game");
+                        new GameFrame(); 
+                    }
+                    
+                    else {
+                        System.out.println("");
+                    }
+
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+                }
+
+            });   
         }
     }
 
