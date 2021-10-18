@@ -2,6 +2,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 
 public class SnakeGame {
@@ -172,13 +175,154 @@ public class SnakeGame {
 
     public void handleAbout() {
         // Message 
-        String message = "Eat some apples to which will be randomly generated across the screen! Avoid getting hit on the walls and do not bite yourself ";
+        // String message = "Eat some apples to which will be randomly generated across the screen! Avoid getting hit on the walls and do not bite yourself ";
 
         // Beep 
         Toolkit.getDefaultToolkit().beep();
 
         // Pop-up some message dialog for information 
-        JOptionPane.showMessageDialog(null, message, "About and Instructions", JOptionPane.INFORMATION_MESSAGE);
+        /** A NEW IMPLEMENTATION WILL BE UPDATED AND APPLIED FOR THIS FUNCTION */
+        // JOptionPane.showMessageDialog(null, message, "About and Instructions", JOptionPane.INFORMATION_MESSAGE);
+
+        // Call and prepare the dedication function to set up the About window 
+        init_and_prepAboutW();
+    }
+
+    public void init_and_prepAboutW() {
+        // Create a new instance of a frame 
+        JFrame frame_about = new JFrame("About game and official instructions"); 
+
+        // Create panels
+        JPanel panel = new JPanel();
+
+        // Log to console 
+        System.out.println("Preparing window About");
+
+        // Label for instructions 
+        JLabel msg = new JLabel();
+        JLabel prompt = new JLabel(); 
+
+        // Try link to github 
+        JLabel link = new JLabel(new ImageIcon("assets/icons/github.png")); 
+
+        // Try wrapping
+            /** About content panel */ 
+            msg.setText("<html><body><h1>INSTRUCTIONS</h1><p>Eat some apples to which will be randomly generated across the screen! <br> Avoid getting hit on the walls and do not bite yourself <br> </p><h2>Developers</h2> </body></html>");
+
+            prompt.setText("<html><body><h3>Artwork and Graphics By:</h3><p>Cloyd Secuya <br> </p></body></html>");
+
+
+
+        // Create a string array of developers 
+        String[] devs= { " Cloyd Secuya", 
+                         " Darrel Bilbao",                
+                         " Matthew Martinez", 
+                         " Howell Rias"
+                       };
+
+        // Create a list for the developers 
+        JList list = new JList<>(devs);
+        list.setPreferredSize(new Dimension(400, 75));
+
+        // Link to github feature 
+        link.setPreferredSize(new Dimension(100, 100));
+        link.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {}
+
+            @Override
+            public void mousePressed(MouseEvent e) {}
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                try {
+                    final URI link = new URI("https://github.com/Ciezo/Snake-Game");
+                    Desktop.getDesktop().browse(link); 
+                } 
+                
+                catch (URISyntaxException | IOException e1) {
+                    e1.printStackTrace();
+                }  
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                System.out.println("HOVERED OVER: Github link"); 
+
+                // Change icon when hover
+                ImageIcon gitIcon_hover = new ImageIcon("assets/icons/onHover/github_onHover.png");
+                link.setIcon(gitIcon_hover);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                System.out.println("EXITED OVER: Github link"); 
+
+                // Default back to icon when cursor exit over
+                ImageIcon gitIcon_exit = new ImageIcon("assets/icons/github.png");
+                link.setIcon(gitIcon_exit);
+            }
+
+        });
+
+        // Add these initialized components in the panel 
+        panel.add(msg, BorderLayout.LINE_START); 
+        panel.add(list, BorderLayout.PAGE_END);   
+        panel.add(prompt, BorderLayout.SOUTH); 
+         
+        
+
+        // Fetch the instance of frame object and set all given initialized components to it 
+        frame_about.getContentPane();
+        frame_about.setPreferredSize(new Dimension(500, 500)); 
+        frame_about.add(panel, BorderLayout.CENTER);  
+        frame_about.add(link, BorderLayout.SOUTH); 
+
+        // Center the frame pop-up 
+        frame_about.setLocationRelativeTo(null); 
+
+        // Pack the frame and set visible as true 
+        frame_about.pack();
+        frame_about.setVisible(true);
+    }
+
+    public void hanleExit() {
+        // Beep 
+        Toolkit.getDefaultToolkit().beep();
+        
+        // Pop-up dialog
+        int arg = JOptionPane.showConfirmDialog(null, "Are you sure you want to close the application?", 
+        "Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        // Pass the decision as int
+        decision_ext(arg);
+        
+    }
+
+    public void decision_ext(int arg) {
+        
+        // Print the passed parameter from JOption
+        //** TEST CASE */
+        System.out.println(arg);
+        
+        switch (arg) {
+            
+            case 0:
+                System.out.println("Closing application!");
+                System.exit(0);
+
+                break; 
+
+
+            case 1:
+                System.out.println("Returning to application");
+                break; 
+            
+
+            default:
+                System.out.println("Decision entered");
+                break; 
+        }
     }
 
     public void actionCommanders() {

@@ -161,7 +161,9 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
 
                     break; 
                 case "Exit":
-            
+                    System.out.println("Attempting to close application!");
+                    System.out.println("Waiting user for response!");
+                    gui.hanleExit();
                 break; 
         }
     }
