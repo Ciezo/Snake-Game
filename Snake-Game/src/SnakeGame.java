@@ -22,6 +22,7 @@ public class SnakeGame {
     // Create instances of JPanel 
     JPanel home_panel;                     // For the main menu or home page of the game 
     JPanel gameplay;                        // For the gameplay screen 
+    JPanel playbuttonpanel;                 // For play button
 
     // Create instance for JLabel and JButtons 
     /** For Main Window */
@@ -38,8 +39,7 @@ public class SnakeGame {
     /** For Gameplay Window */ 
         JLabel gameplayBG; 
         JPanel dashboard_container; 
-        JLabel dashboard; 
-
+        JLabel dashboard;
  
     public SnakeGame() {
 
@@ -56,19 +56,22 @@ public class SnakeGame {
         fetchAllListeners();
 
         // Pack the frame and set to be visible on run 
+        main_frame.setContentPane(new JLabel(new ImageIcon("assets/backgrounds/main_window-BG.png")));
+        main_frame.getContentPane().setPreferredSize(new Dimension(width,height));
         main_frame.pack(); 
         main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        main_frame.setVisible(true); 
+        main_frame.setVisible(true);
     }
 
 
     public void init_mainW() { 
         main_frame = new JFrame(); 
         home_panel = new JPanel(); 
+        playbuttonpanel = new JPanel();
         
         main_frame.setTitle ("mmmmSnekkk"); 
 
-        main_windowBG = new JLabel(new ImageIcon("assets/backgrounds/main_window-BG.png")); 
+        //main_windowBG = new JLabel(new ImageIcon("assets/backgrounds/main_window-BG.png")); 
         titleCard = new JLabel(new ImageIcon("assets/backgrounds/title_card.png")); 
         
         // Acting buttons using custom images found in the icons dir 
@@ -105,16 +108,19 @@ public class SnakeGame {
             aboutB.setFocusPainted(false);
             exitB.setFocusPainted(false);
 
+            playbuttonpanel.setBounds(0, 0, width, height);
+
 
         // Add the background image found in "assets/backgrounds/main_window-BG.png" to the home_panel 
-        home_panel.add(main_windowBG); 
+        //home_panel.add(main_windowBG);
         // Add the title card image found in "assets/backgrounds/title_card.png" to the home_panel 
         home_panel.add(titleCard); 
 
         // Add the Play, About, Exit buttons to the home_panel  
-        home_panel.add(playB);
+        //home_panel.add(playB);
         home_panel.add(aboutB);
         home_panel.add(exitB); 
+        playbuttonpanel.add(playB);
 
         // Adding the acting JLabels as "buttons" to the home_panel 
         // home_panel.add(play); 
@@ -123,6 +129,7 @@ public class SnakeGame {
 
         // Finally, add the modified components to our frame 
         main_frame.add(home_panel); 
+        main_frame.add(playbuttonpanel);
     }
 
     public void setWindowIcon() { 
