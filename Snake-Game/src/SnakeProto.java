@@ -19,9 +19,10 @@ public class SnakeProto extends JPanel implements ActionListener{
     boolean running = false;
     Timer timer;
     Random random;
+    Image img;
 
     // Apply and implement custom background 
-    JLabel gameBG; 
+    //JLabel gameBG; 
 
     SnakeProto() {
         random = new Random();
@@ -30,11 +31,12 @@ public class SnakeProto extends JPanel implements ActionListener{
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
         startGame();
+        img = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/grass_biome-BG_lv1.png");
 
         // Initialize gameplay background
         // "assets/backgrounds/grass_biome-BG_lv1.png"
-        gameBG = new JLabel(new ImageIcon("assets/backgrounds/grass_biome-BG_lv1.png"));
-        // this.add(gameBG); 
+        //gameBG = new JLabel(new ImageIcon("assets/backgrounds/grass_biome-BG_lv1.png"));
+        //this.add(gameBG); 
     }
 
     public void startGame(){
@@ -50,6 +52,8 @@ public class SnakeProto extends JPanel implements ActionListener{
     }
 
     public void draw(Graphics g){
+        g.drawImage(img,0,0,null);
+
         if(running) {
 
 
@@ -96,13 +100,12 @@ public class SnakeProto extends JPanel implements ActionListener{
 
                     if (key == KeyEvent.VK_N) {
                         System.out.println("Restarting game");
-                        new GameFrame(); 
+                        new GameFrame();
                     }
                     
                     else {
                         System.out.println("");
                     }
-
                 }
 
                 @Override
@@ -227,7 +230,7 @@ public class SnakeProto extends JPanel implements ActionListener{
 
         GameFrame() {
             this.add(new SnakeProto());
-            this.setTitle("SnakeGame");
+            this.setTitle("mmmmSnekkk");
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.pack();
             this.setVisible(true);
