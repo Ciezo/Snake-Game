@@ -11,7 +11,10 @@ public class SnakeGame {
     
     // Values 
     public int width = 960; 
-    public int height = 720;  
+    public int height = 720;
+    
+    // Image rendering, try 
+    Image img; 
 
     // Listeners 
     EventMaster handler = new EventMaster(SnakeGame.this);  
@@ -20,8 +23,12 @@ public class SnakeGame {
     JFrame main_frame; 
     
     // Create instances of JPanel 
-    JPanel home_panel;                     // For the main menu or home page of the game 
-    JPanel gameplay;                        // For the gameplay screen 
+        JPanel home_panel;                     // For the main menu or home page of the game 
+        JPanel gameplay;                       // For the gameplay screen 
+
+        JPanel playbuttonpanel;                // For play button which acts as a container 
+        JPanel aboutbuttonpanel;               // For about button which is a container  
+        JPanel exitbuttonpanel;                // For exit button which is a container as well 
 
     // Create instance for JLabel and JButtons 
     /** For Main Window */
@@ -34,12 +41,20 @@ public class SnakeGame {
         JButton playB; 
         JButton aboutB;
         JButton exitB;
+
+        /** Pop-up window for choosing levels */
+            // A JFrame
+                JFrame levelChooser_container; 
+            // Levels picker 
+           JButton grass_lvlPick = new JButton("Grass Biome"); 
+           JButton desert_lvlPick = new JButton("Desert Biome");
+           JButton winter_lvlPick = new JButton("Winter Biome");
     
     /** For Gameplay Window */ 
         JLabel gameplayBG; 
         JPanel dashboard_container; 
         JLabel dashboard; 
-
+    
  
     public SnakeGame() {
 
@@ -63,9 +78,19 @@ public class SnakeGame {
 
 
     public void init_mainW() { 
+        // Image fetch, rendering 
+        img = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/main_window-BG.png");
+
+        // Try, position rendered image at back
+        // draw(); 
+
         main_frame = new JFrame(); 
         home_panel = new JPanel(); 
         
+        playbuttonpanel = new JPanel(); 
+        aboutbuttonpanel = new JPanel();
+        exitbuttonpanel = new JPanel();  
+
         main_frame.setTitle ("mmmmSnekkk"); 
 
         main_windowBG = new JLabel(new ImageIcon("assets/backgrounds/main_window-BG.png")); 
@@ -112,17 +137,38 @@ public class SnakeGame {
         home_panel.add(titleCard); 
 
         // Add the Play, About, Exit buttons to the home_panel  
-        home_panel.add(playB);
-        home_panel.add(aboutB);
-        home_panel.add(exitB); 
+        // home_panel.add(playB);
+        // home_panel.add(aboutB);
+        // home_panel.add(exitB); 
+
+        // Add the buttons to each on its own panel container 
+        playbuttonpanel.add(playB); 
+        aboutbuttonpanel.add(aboutB); 
+        exitbuttonpanel.add(exitB); 
+
+        // Add the Panel containers for buttons to the home_panel 
+        home_panel.add(playbuttonpanel);
+        home_panel.add(aboutbuttonpanel);
+        home_panel.add(exitbuttonpanel);
+
 
         // Adding the acting JLabels as "buttons" to the home_panel 
         // home_panel.add(play); 
         // home_panel.add(about);
         // home_panel.add(exit); 
 
+        // Set bounding coordinates 
+        playbuttonpanel.setBounds(0, 0, 200, 200);
+        aboutbuttonpanel.setBounds(50, 50, 200, 200);
+        exitbuttonpanel.setBounds(100, 100, 200, 200);
+        
+
         // Finally, add the modified components to our frame 
         main_frame.add(home_panel); 
+    }
+
+    public void draw(Graphics g) {
+        g.drawImage(img, 0, 0, null);  
     }
 
     public void setWindowIcon() { 
@@ -145,6 +191,27 @@ public class SnakeGame {
         main_frame.repaint();
     }
     
+    public void prepLevelPicker() {
+        // Create a new instance for the acting container of buttons as level picker
+        levelChooser_container = new JFrame("Please choose a level"); 
+
+        // Set button sizes 
+        grass_lvlPick.setPreferredSize(new Dimension(200, 100));
+        desert_lvlPick.setPreferredSize(new Dimension(200, 100));
+        winter_lvlPick.setPreferredSize(new Dimension(200, 100)); 
+
+        // Add initialized components in the frame acting as container 
+        levelChooser_container.add(grass_lvlPick, BorderLayout.LINE_START); 
+        levelChooser_container.add(desert_lvlPick, BorderLayout.CENTER);
+        levelChooser_container.add(winter_lvlPick, BorderLayout.LINE_END);
+
+        // Pack the pop-up window and set visible as true  
+        levelChooser_container.pack();
+        levelChooser_container.setVisible(true);
+
+    }
+    
+
     public void setGamePlay() {
         // Create a new instance for the gameplay JPanel
         gameplay = new JPanel(); 
@@ -277,7 +344,7 @@ public class SnakeGame {
         frame_about.setPreferredSize(new Dimension(500, 500)); 
         frame_about.add(panel, BorderLayout.CENTER);  
         frame_about.add(link, BorderLayout.SOUTH); 
-
+        
         // Center the frame pop-up 
         frame_about.setLocationRelativeTo(null); 
 
@@ -330,19 +397,37 @@ public class SnakeGame {
         playB.setActionCommand("Play");
         aboutB.setActionCommand("About");
         exitB.setActionCommand("Exit"); 
-
+        
+        // Set action command to level pickers 
+        grass_lvlPick.setActionCommand("grassPick");
+        desert_lvlPick.setActionCommand("desertPick");
+        winter_lvlPick.setActionCommand("winterPick");
     }
 
     public void fetchAllListeners () { 
-        // Add mouse listener to these buttons 
+
+        // Add mouse motion listener to the frame 
+        main_frame.addMouseMotionListener(handler); 
+
+        // Add mouse listener to these buttons on the Play, About, Exit 
         playB.addMouseListener(handler); 
         aboutB.addMouseListener(handler);
         exitB.addMouseListener(handler);
 
-        // Add action listener to these buttons 
+        // Add action listener to these buttons on the Play, About, Exit
         playB.addActionListener(handler); 
         aboutB.addActionListener(handler); 
-        exitB.addActionListener(handler); 
+        exitB.addActionListener(handler);
+
+        // Add action listener to the level picker as buttons 
+        grass_lvlPick.addActionListener(handler);
+        desert_lvlPick.addActionListener(handler);
+        winter_lvlPick.addActionListener(handler);
+
+        // Add mouse listener to the level picking buttons 
+        grass_lvlPick.addMouseListener(handler);
+        desert_lvlPick.addMouseListener(handler);
+        winter_lvlPick.addMouseListener(handler); 
     }
 
 }

@@ -52,27 +52,27 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        e.getSource(); 
-        e.getID(); 
-
+       
         // PLAY Button 
         if (e.getSource() == gui.playB) {
             System.out.println("CLICKED: Play button");
 
             System.out.println("Preparing and initializing Gameplay");
-            gui.init_and_prepGameplayW(); 
-            gui.setGamePlay();
+            // gui.init_and_prepGameplayW();
+            // gui.prepLevelPicker(); 
+            // gui.setGamePlay();
         }
-        
+
+        // Level Picking
+            /** TRY TO DIPOSE THE LEVEL PICKER CONTAINER WHICH IS A JFRAME */    
+            if (e.getSource() == gui.grass_lvlPick) {
+                gui.levelChooser_container.dispose(); 
+            }
     } 
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        e.getSource(); 
-        e.getID(); 
-        System.out.println(e.getSource());
-        System.out.println(e.getID()); 
-
+       
         /** HOME PANEL */
         // In these implementations, we try to change and apply response to the buttons: Play, About, Exit 
         // That is to say, these buttons should change texture or icon when mouse cursor hovered over 
@@ -103,11 +103,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
 
     @Override
     public void mouseExited(MouseEvent e) {
-        e.getSource(); 
-        e.getID(); 
-        System.out.println(e.getSource());
-        System.out.println(e.getID()); 
-
+      
         /** HOME PANEL */
         // Meanwhile, after the cursor exits over to the buttons components: Play, About, Exit. 
         // They should revert back to the original icon look and feel         
@@ -138,22 +134,36 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        e.getSource(); 
-        e.getID(); 
-        System.out.println(e.getSource());
-        System.out.println(e.getID());
-        
+
         commander = e.getActionCommand(); 
         switch (commander) {
 
             /** HOME PANEL */
                 case "Play":
                     System.out.println("Action performed: Play button");
+                    System.out.println("Picking a level");
+                    gui.prepLevelPicker(); 
                     
-                    System.out.println("Setting Gameplay Frame");
-                    System.out.println("Fetching images and assets files"); 
-                    gui.setGamePlay(); 
-                    break;  
+                break;  
+                
+                /** TEST CASES FOR LEVEL PICKING */
+                        case "grassPick":
+                            System.out.println("Entering Grass Biome"); 
+                            System.out.println("Setting Gameplay Frame");
+                            System.out.println("Fetching images and assets files");
+                            gui.init_and_prepGameplayW(); 
+                            gui.setGamePlay(); 
+
+                            
+                        break; 
+
+                        case "desertPick":
+                            System.out.println("Desert IN DEVELOPMENT");
+                        break; 
+
+                        case "winterPick":
+                            System.out.println("Winter IN DEVELOPMENT");
+                        break; 
 
                 case "About":
                     System.out.println("Attempting to show and pop About and Instructions message");
@@ -164,6 +174,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                     System.out.println("Attempting to close application!");
                     System.out.println("Waiting user for response!");
                     gui.hanleExit();
+
                 break; 
         }
     }
