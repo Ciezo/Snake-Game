@@ -21,6 +21,13 @@ public class SnakeProto extends JPanel implements ActionListener{
     Random random;
     Image img;
 
+    // Try to create a JLabel to set an apple render 
+    // JLabel apple; 
+    /** NOTE: I BELIEVE IT IS MUCH BETTER TO USE IMAGE CLASS 
+     *        FOR THE APPLE RENDERING
+     */
+    Image apl; 
+
     // Apply and implement custom background 
     //JLabel gameBG; 
 
@@ -32,6 +39,9 @@ public class SnakeProto extends JPanel implements ActionListener{
         this.addKeyListener(new MyKeyAdapter());
         startGame();
         img = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/grass_biome-BG_lv1.png");
+        apl = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/grass_biome-BG_lv1.png");
+
+        
 
         // Initialize gameplay background
         // "assets/backgrounds/grass_biome-BG_lv1.png"
@@ -49,20 +59,31 @@ public class SnakeProto extends JPanel implements ActionListener{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         draw(g);
+
     }
 
     public void draw(Graphics g){
         g.drawImage(img,0,0,null);
-
+        
+        // Try, render apple image
+        // g.drawImage(apl, appleX, appleY, null); 
+        
+        
         if(running) {
 
 
-            for(int i=0;i<SCREEN_HEIGHT/UNIT_SIZE;i++){
-                g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
-                g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
-            }
-            g.setColor(Color.red);
+            // Draws grid lines on the screen 
+            // for(int i=0;i<SCREEN_HEIGHT/UNIT_SIZE;i++){
+            //     g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
+            //     g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
+            // }
+            
+            // Paints apple over the screen 
+            g.setColor(Color.blue);
             g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+            
+            
+
 
             for(int i = 0;i < bodyParts;i++) {
                 if(i == 0) {
