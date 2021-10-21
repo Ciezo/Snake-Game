@@ -153,7 +153,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                             System.out.println("Fetching images and assets files");
                             gui.init_and_prepGameplayW(); 
                             gui.setGamePlay(); 
-
+                            gui.main_frame.repaint();
                             
                         break; 
 

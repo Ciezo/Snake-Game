@@ -69,7 +69,7 @@ public class SnakeProto extends JPanel implements ActionListener{
 
         // Render the img object
         g.drawImage(img, 0, 0, null); 
-
+        
         if(running) {
 
 
@@ -77,6 +77,7 @@ public class SnakeProto extends JPanel implements ActionListener{
                 g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
                 g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
             }
+            // Paints the apple over the screen 
             g.setColor(Color.red);
             g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
 
