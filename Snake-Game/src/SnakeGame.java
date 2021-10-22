@@ -5,13 +5,19 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.awt.Font;
+import java.io.File;
+import java.awt.GraphicsEnvironment;
 
 public class SnakeGame {
     
     // Values 
         public int width = 960; 
         public int height = 720;
+
+    // Fonts   
+    Font timerF; 
+    Font scoreF;   
     
     // Image rendering, try 
         Image img; 
@@ -21,51 +27,81 @@ public class SnakeGame {
  
     // Create instance of a JFrame  
         JFrame main_frame; 
+        JFrame game_frame;
     
+
+
     // Create instances of JPanel 
-        JPanel home_panel;                     // For the main menu or home page of the game 
-        JPanel gameplay;                       // For the gameplay screen 
+        /** Main home window */
+            JPanel home_panel;                     // For the main menu or home page of the game 
+            JPanel playbuttonpanel;                // For play button which acts as a container 
+            JPanel aboutbuttonpanel;               // For about button which is a container  
+            JPanel exitbuttonpanel;                // For exit button which is a container as well 
+            JPanel titlecardpanel;                 // For title card which acts as a panel container too 
 
-        JPanel playbuttonpanel;                // For play button which acts as a container 
-        JPanel aboutbuttonpanel;               // For about button which is a container  
-        JPanel exitbuttonpanel;                // For exit button which is a container as well 
+        
+        /** Gameplay window */
+            JPanel gameplay;                       // For the gameplay screen 
+            JPanel dashboard_container;            // Dashboard panel act as container 
+            JPanel navbar;                         // For navbar on Dashboard
+            JPanel resPanel; 
+            JPanel setPanel; 
+            JPanel menuPanel; 
+            JPanel quiPanel; 
+            JPanel heartPanel;
+            JPanel timerPanel;
+            JPanel scorePanel; 
 
-        JPanel titlecardpanel;                 // For title card which acts as a panel container too 
+
+
 
     // Create instance for JLabel and JButtons 
-    /** For Main Window */
-        JLabel main_windowBG;
-        JLabel titleCard;  
-        JLabel play;
-        JLabel about;
-        JLabel exit; 
+        /** For Main Window */
+            JLabel main_windowBG;
+            JLabel titleCard;  
+            JLabel play;
+            JLabel about;
+            JLabel exit; 
 
-        JButton playB; 
-        JButton aboutB;
-        JButton exitB;
+            JButton playB; 
+            JButton aboutB;
+            JButton exitB;
 
-        /** Pop-up window for choosing levels */
-            // A JFrame
-                JFrame levelChooser_container; 
-            // Levels picker 
-                JButton grass_lvlPick = new JButton("Grass Biome"); 
-                JButton desert_lvlPick = new JButton("Desert Biome");
-                JButton winter_lvlPick = new JButton("Winter Biome");
+            /** Pop-up window for choosing levels */
+                // A JFrame
+                    JFrame levelChooser_container; 
+                // Levels picker 
+                    JButton grass_lvlPick = new JButton("Grass Biome"); 
+                    JButton desert_lvlPick = new JButton("Desert Biome");
+                    JButton winter_lvlPick = new JButton("Winter Biome");
     
-    /** For Gameplay Window */ 
-        JLabel gameplayBG; 
-        JPanel dashboard_container; 
-        JLabel dashboard; 
+
+
+        /** For Gameplay Window */ 
+            JLabel gameplayBG;  
+            JLabel dashboard; 
+            JLabel heart1;
+            JLabel heart2;
+            JLabel heart3;
+            JLabel timer; 
+            JLabel scoreLabel; 
+
+            JButton restart; 
+            JButton settings; 
+            JButton menu; 
+            JButton quit; 
+        
     
- 
     public SnakeGame() {
+        // Fonts, try setting up 
+            runFonts(); 
 
         // Call the dedicated function initializer to set and prepare our main menu home page on the main_frame 
             init_mainW();   
-
+            
         // Call the window icon setter 
             setWindowIcon(); 
-
+            
         // Call Action commanders 
             actionCommanders();
 
@@ -221,6 +257,38 @@ public class SnakeGame {
 
 
 
+    public void runFonts() {
+        
+        try {    
+            // Fetch font through File reading from dir
+                /** For timer */
+                timerF = Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/LCDM2N__.TTF")).deriveFont(40f);
+
+                /** For score label */
+                scoreF = Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/Bungee-Regular.ttf")).deriveFont(35f);
+
+            // Create graphics environment to register and render our custom font 
+                GraphicsEnvironment gg = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            
+            // Try, try register font to gg
+                /** Register Timer font */
+                gg.registerFont(timerF);
+                gg.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/LCDM2N__.TTF")));
+
+                /** Register Score Label font */
+                gg.registerFont(scoreF); 
+                gg.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/Bungee-Regular.ttf")));
+        }     
+        
+        catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+
     public void setWindowIcon() { 
         JLabel icon = new JLabel("Window icon"); 
         ImageIcon frameIcon = new ImageIcon("assets/items/apples/100x100/apple2.png");   
@@ -233,27 +301,33 @@ public class SnakeGame {
 
     public void prepLevelPicker() {
         // Create a new instance for the acting container of buttons as level picker
-        levelChooser_container = new JFrame("Please choose a level"); 
+            levelChooser_container = new JFrame("Please choose a level"); 
         
         // Set button sizes 
-        grass_lvlPick.setPreferredSize(new Dimension(200, 100));
-        desert_lvlPick.setPreferredSize(new Dimension(200, 100));
-        winter_lvlPick.setPreferredSize(new Dimension(200, 100)); 
-        
+            grass_lvlPick.setPreferredSize(new Dimension(200, 100));
+            desert_lvlPick.setPreferredSize(new Dimension(200, 100));
+            winter_lvlPick.setPreferredSize(new Dimension(200, 100)); 
+            
         // Add initialized components in the frame acting as container 
-        levelChooser_container.add(grass_lvlPick, BorderLayout.LINE_START); 
-        levelChooser_container.add(desert_lvlPick, BorderLayout.CENTER);
-        levelChooser_container.add(winter_lvlPick, BorderLayout.LINE_END);
+            levelChooser_container.add(grass_lvlPick, BorderLayout.LINE_START); 
+            levelChooser_container.add(desert_lvlPick, BorderLayout.CENTER);
+            levelChooser_container.add(winter_lvlPick, BorderLayout.LINE_END);
         
+        // Avoid pop-up window resizing
+            levelChooser_container.setResizable(false);
+
         // Pack and center the the pop-up window and set visible as true  
-        levelChooser_container.pack();
-        levelChooser_container.setLocationRelativeTo(null);
-        levelChooser_container.setVisible(true);
+            levelChooser_container.pack();
+            levelChooser_container.setLocationRelativeTo(null);
+            levelChooser_container.setVisible(true);
     }
     
 
 
     public void init_and_prepGameplayW() {
+        // Create a fresh instance for gameplay frame 
+            game_frame = new JFrame(); 
+
         // Remove the old components from the main_frame 
             main_frame.getContentPane().removeAll();
             main_frame.remove(main_windowBG);
@@ -269,48 +343,206 @@ public class SnakeGame {
         
         // Repaint the main_frame 
             main_frame.repaint();
+
+        // Dispose main_frame to create game_frame
+            /** TEST OKAY! */
+            main_frame.dispose();             
     }   
     
-    // @NOTE_NOTICE:
-    // ISSUE WITHIN SETTING THE GAMEPLAY WINDOW
+
+    
     public void setGamePlay() {
-        /** CREATING NEW INSTANCES AND FETCHING DECLARED OBJECTS */
-            // Create a new and fresh instance of main_frame
-                main_frame = new JFrame();
+        // Initialize the game_frame 
+        game_frame = new JFrame(); 
 
-            // Create a new instance for the gameplay JPanel
-                gameplay = new JPanel(); 
-                gameplay.setLayout(null);
-            
-            // Create a new instance for the dashboard container panel
-                dashboard_container = new JPanel(); 
-                dashboard_container.setLayout(null);
-                
-            // Fetch the custom image to act as background for the gameplay panel  
-                gameplayBG = new JLabel(new ImageIcon("assets/backgrounds/grass_biome-BG_lv1.png")); 
-            
-            // Fetch and set image to the dashboard to be which added to the dashboard_container panel 
-                dashboard = new JLabel(new ImageIcon("assets/dashboard/dashboard.png")); 
+        // Set window icon 
+        setWindowIcon();
 
-        // Reset content pane from OLD, add the gameplay background
-            // main_frame.setContentPane(gameplayBG);
+        // Initialize the game frame 
+        game_frame.setTitle("Now Playing! Snake Game - Grass Biome");
+        game_frame.setSize(width, height);
+        game_frame.setLocationRelativeTo(null); 
+        game_frame.setResizable(false); 
+        game_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        game_frame.setContentPane(new JLabel(new ImageIcon ("assets/backgrounds/grass_biome-BG_lv1.png")));
 
-        /** ADDING INITIALIZED COMPONENTS TO THEIR RESPECTIVE PANEL CONTAINERS */
-            // Add dashboard to dashboard_container panel 
-                dashboard_container.add(dashboard); 
+        // Add mouse motion listener
+        game_frame.addMouseMotionListener(handler);
 
-            // Add components to the gameplay panel  
-                gameplay.add(gameplayBG);                   // add the custom and modified background graphic
-                gameplay.add(dashboard_container);          // now, add the customized dashboard and everything about it 
+        // Set and initialize the dashboard texture with ImageIcon
+        dashboard = new JLabel(new ImageIcon("assets/dashboard/dashboard2.png")); 
 
-            // Add the gameplay panel to the main frame 
-                main_frame.add(gameplay); 
+        // Set and initialzie the navbar icons: restart, settings, menu, quit with ImageIcon
+        /** ImageIcons to set for the navbar buttohns*/
+        ImageIcon restartIcon = new ImageIcon("assets/icons/restart.png"); 
+        ImageIcon settingsIcon = new ImageIcon("assets/icons/settings.png");
+        ImageIcon menuIcon = new ImageIcon("assets/icons/menu.png");
+        ImageIcon quitIcon = new ImageIcon("assets/icons/quit.png");
+
+        /** Restart navbar button */
+        restart = new JButton(restartIcon);
+
+        /** Settings navbar button */
+        settings = new JButton(settingsIcon);
+
+        /** Menu navbar button */
+        menu = new JButton(menuIcon); 
+
+        /** Quit navbar button */
+        quit = new JButton(quitIcon);
+
+        // Remove the default look of JButton for navbar
+        restart.setOpaque(false);         // make invisible
+        settings.setOpaque(false);        // make invisible
+        menu.setOpaque(false);
+        quit.setOpaque(false);         // make invisible 
+
+        restart.setContentAreaFilled(false); 
+        settings.setContentAreaFilled(false);
+        menu.setContentAreaFilled(false);
+        quit.setContentAreaFilled(false);
+
+        restart.setBorderPainted(false); 
+        settings.setBorderPainted(false);
+        menu.setBorderPainted(false);
+        quit.setBorderPainted(false);
+
+        restart.setFocusPainted(false); 
+        settings.setFocusPainted(false);
+        menu.setFocusPainted(false);
+        quit.setFocusPainted(false);
+
+
+        // Set and initialize heart icons to set with ImageIcon 
+        ImageIcon h1 = new ImageIcon("assets/icons/hearts.png");
+        ImageIcon h2 = new ImageIcon("assets/icons/hearts.png");
+        ImageIcon h3 = new ImageIcon("assets/icons/hearts.png");
+
+            // Set and initialize hearts label set with ImageIcon 
+            heart1 = new JLabel(h1);
+            heart2 = new JLabel(h2);
+            heart3 = new JLabel(h3); 
+
+
+        // Set and initialize the timer label 
+        timer = new JLabel("0:00");
+        timer.setFont(timerF); 
+        timer.setForeground(new Color(196, 8, 78));
+
+        // Set and initialize the score label
+        scoreLabel = new JLabel("x0"); 
+        scoreLabel.setFont(scoreF);
+        scoreLabel.setForeground(Color.BLACK);
+
+        // Set and initialize the dashboard panel acting as container 
+            /** Panel for dashboard */
+            dashboard_container = new JPanel(); 
+            dashboard_container.setOpaque(false); 
+            dashboard_container.setBounds(25, 1, 910, 250); 
+
+            /** Panel for navbar */
+            // This is a the MASTER CONTAINER for the navbar buttons
+            navbar = new JPanel(); 
+            navbar.setLayout(null);
+            navbar.setOpaque(false); 
+            navbar.setBounds(705, 13, 500, 500);
+
+            /** Panel for restart icon */
+            resPanel = new JPanel(); 
+            resPanel.setOpaque(false); 
+            resPanel.setBounds(0, 0, 50, 50);
+
+            /** Panel for settings icon */
+            setPanel = new JPanel(); 
+            setPanel.setOpaque(false); 
+            setPanel.setBounds(50, 0, 50, 50);
+
+            /** Panel for menu icon */
+            menuPanel = new JPanel(); 
+            menuPanel.setOpaque(false); 
+            menuPanel.setBounds(100, 0, 50, 50);
         
-        // Before repainting, try AGAIN to remove components from the home_panel
-            home_panel.removeAll();
+            /** Panel for quit icon */
+            quiPanel = new JPanel(); 
+            quiPanel.setOpaque(false); 
+            quiPanel.setBounds(150, 0, 50, 50);
 
-        // Repaint the main frame 
-            main_frame.repaint();
+            /** Panel for hearts acting as container  */
+            heartPanel = new JPanel(); 
+            heartPanel.setLayout(null);
+            heartPanel.setOpaque(false);
+            heartPanel.setBounds(495, 12, 200, 200);
+
+            /** Panel for timer for timer label */
+            timerPanel = new JPanel();
+            timerPanel.setLayout(null);
+            timerPanel.setOpaque(false);
+            timerPanel.setBounds(80, 0, 100, 100);
+
+            /** Panel for the score label */
+            scorePanel = new JPanel(); 
+            scorePanel.setLayout(null);
+            scorePanel.setOpaque(false);
+            scorePanel.setBounds(416, 13, 95, 95);
+
+            /** Set coords for the hearts inside the panel */  
+            heart1.setBounds(0, 0, 70, 70);
+            heart2.setBounds(55, 0, 70, 70);
+            heart3.setBounds(105, 0, 70, 70);
+
+            /** Set coords for timer label inside the timerPanel */
+                // Set it to the most upperleft of the timerPanel too 
+                timer.setBounds(0, 0, 100, 100);
+
+            /** Now, set coords for the score label inside the score panel */
+                // Set it to the most upperleft of the score panel 
+                scoreLabel.setBounds(0, 0, 100, 100);
+
+
+        // Add components to panel containers 
+        dashboard_container.add(dashboard);     
+        resPanel.add(restart); 
+        setPanel.add(settings); 
+        menuPanel.add(menu); 
+        quiPanel.add(quit);
+        heartPanel.add(heart1);
+        heartPanel.add(heart2);
+        heartPanel.add(heart3);
+        timerPanel.add(timer); 
+        scorePanel.add(scoreLabel);
+        
+        // Then, try to add the containers to the main navbar container panel
+        navbar.add(resPanel);
+        navbar.add(setPanel);
+        navbar.add(menuPanel);
+        navbar.add(quiPanel);
+
+        // Then, try to add the navbar to the dashboard panel 
+        dashboard_container.add(navbar); 
+
+        // Try to add heart panel to dashboard panel 
+        dashboard_container.add(heartPanel);
+
+        // Try to add timer panel to dashboard panel 
+        dashboard_container.add(timerPanel);
+
+        // This time and finally,...try to add score panel onto the dashboard panel 
+        dashboard.add(scorePanel);
+
+
+
+        // Finally, add the panels to frame instance
+        game_frame.add(navbar); 
+        game_frame.add(heartPanel);
+        game_frame.add(timerPanel);
+        game_frame.add(scorePanel);
+        game_frame.add(dashboard_container);
+
+
+
+        // Pack the frame and set visible as true
+        game_frame.pack();
+        game_frame.setVisible(true);
     }
 
 
@@ -424,7 +656,8 @@ public class SnakeGame {
             frame_about.add(panel, BorderLayout.CENTER);  
             frame_about.add(link, BorderLayout.SOUTH); 
         
-        
+        // Avoid resizing
+            frame_about.setResizable(false);
         
         // Pack and center the frame and set visible as true 
             frame_about.pack();

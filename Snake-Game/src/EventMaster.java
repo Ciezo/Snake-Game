@@ -37,7 +37,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        
+        System.out.println("Coordinates: " + "X: " + e.getX() + "    " + "Y: " + e.getY());
     }
 
     @Override
@@ -153,7 +153,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                             System.out.println("Fetching images and assets files");
                             gui.init_and_prepGameplayW(); 
                             gui.setGamePlay(); 
-                            gui.main_frame.repaint();
+                            gui.game_frame.repaint();
                             
                         break; 
 
