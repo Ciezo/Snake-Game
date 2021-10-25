@@ -323,7 +323,7 @@ public class SnakeGame {
             // DataLine.Info info;
             // Clip clip;
 
-            audio = new File("sfxpack/bg-forest.wav");
+            audio = new File("sfxpack/wav/bg-forest.wav");
             stream = AudioSystem.getAudioInputStream(audio);
             format = stream.getFormat();
             info = new DataLine.Info(Clip.class, format);
@@ -437,7 +437,7 @@ public class SnakeGame {
             setWindowIcon();
 
         // Set and play gameplay music background
-            playSound("sfxpack/snakejazz.wav");
+            playSound("sfxpack/wav/snakejazz.wav");
 
 
         // Initialize the game frame 

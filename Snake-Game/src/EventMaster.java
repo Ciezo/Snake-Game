@@ -71,7 +71,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
             // Attempt to play sound effect 
                     // Call the dedication function handler
                         System.out.println("Attempting to play click sound");
-                        gui.playSound("sfxpack/click.wav");
+                        gui.playSound("sfxpack/wav/click.wav");
         }
 
         // Level Picking
@@ -93,7 +93,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                 // Attempt to play sound effect 
                     // Call the dedication function handler
                     System.out.println("Attempting to play click sound");
-                    gui.playSound("sfxpack/click.wav");
+                    gui.playSound("sfxpack/wav/click.wav");
             }    
 
         // EXIT Button 
@@ -104,7 +104,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
             // Attempt to play sound effect 
                 // Call the dedication function handler
                 System.out.println("Attempting to play click sound");
-                gui.playSound("sfxpack/click.wav");
+                gui.playSound("sfxpack/wav/click.wav");
         }    
     } 
 
@@ -124,7 +124,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                 // Attempt to play sound effect 
                     // Call the dedication function handler
                     System.out.println("Attempting to play hover sound");
-                    gui.playSound("sfxpack/hover.wav");
+                    gui.playSound("sfxpack/wav/hover.wav");
             }
             
             // ABOUT Button 
@@ -137,7 +137,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                 // Attempt to play sound effect 
                     // Call the dedication function handler
                     System.out.println("Attempting to play hover sound");
-                    gui.playSound("sfxpack/hover.wav");
+                    gui.playSound("sfxpack/wav/hover.wav");
             }
 
             // EXIT Button 
@@ -150,7 +150,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                 // Attempt to play sound effect 
                     // Call the dedication function handler
                     System.out.println("Attempting to play hover sound");
-                    gui.playSound("sfxpack/hover.wav");
+                    gui.playSound("sfxpack/wav/hover.wav");
             }
     }
 
@@ -222,7 +222,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                             System.out.println("Launching Classic Snake Game"); 
                             classic = new SnakeProto(); 
                             gui.clip.stop();
-                            gui.playSound("sfxpack/snakejazz.wav");
+                            gui.playSound("sfxpack/wav/snakejazz.wav");
                             SnakeProto.main();
                         break; 
 

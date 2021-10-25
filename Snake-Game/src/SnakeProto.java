@@ -266,56 +266,56 @@ public class SnakeProto extends JPanel implements ActionListener{
                     if(direction != 'R') {
                         direction = 'L';
 
-                        playSound("sfxpack/L_m.wav");
+                        playSound("sfxpack/wav/L_m.wav");
                     }
                     break;
                 case KeyEvent.VK_RIGHT:
                     if(direction != 'L') {
                         direction = 'R';
 
-                        playSound("sfxpack/R_m.wav");
+                        playSound("sfxpack/wav/R_m.wav");
                     }
                     break;
                 case KeyEvent.VK_UP:
                     if(direction != 'D') {
                         direction = 'U';
 
-                        playSound("sfxpack/U_m.wav");
+                        playSound("sfxpack/wav/U_m.wav");
                     }
                     break;
                 case KeyEvent.VK_DOWN:
                     if(direction != 'U') {
                         direction = 'D';
 
-                        playSound("sfxpack/D_m.wav");
+                        playSound("sfxpack/wav/D_m.wav");
                     }
                     break;
                 case KeyEvent.VK_W:
                     if (direction != 'D') {
                         direction = 'U'; 
 
-                        playSound("sfxpack/U_m.wav");
+                        playSound("sfxpack/wav/U_m.wav");
                     }
                     break; 
                 case KeyEvent.VK_A:
                     if(direction != 'R') {
                         direction = 'L';
 
-                        playSound("sfxpack/L_m.wav");
+                        playSound("sfxpack/wav/L_m.wav");
                     }
                     break;
                 case KeyEvent.VK_S:
                     if(direction != 'U') {
                         direction = 'D';
 
-                        playSound("sfxpack/D_m.wav");
+                        playSound("sfxpack/wav/D_m.wav");
                     }
                     break;
                 case KeyEvent.VK_D: 
                     if(direction != 'L') {
                         direction = 'R';
 
-                        playSound("sfxpack/R_m.wav");
+                        playSound("sfxpack/wav/R_m.wav");
                     }
                     break;
 
