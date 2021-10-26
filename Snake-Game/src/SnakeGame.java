@@ -194,18 +194,15 @@ public class SnakeGame {
 
         /** Meanwhile, these instances are going to use JButton which is much preferred. So, let's test it! */
             // Set the ImageIcon
-                ImageIcon play_ico = new ImageIcon("assets/icons/play.png");
-                ImageIcon about_ico = new ImageIcon("assets/icons/about.png");
+                ImageIcon play_ico = new ImageIcon("assets/icons/play2.png");
+                ImageIcon about_ico = new ImageIcon("assets/icons/about2.png");
                 ImageIcon exit_ico = new ImageIcon("assets/icons/exit.png"); 
             
             // Set the buttons to embed the ImageIcon 
                 playB = new JButton(play_ico); 
                 aboutB = new JButton(about_ico); 
                 exitB = new JButton(exit_ico); 
-
-            // Set the preferred size of custom buttons
-                playB.setPreferredSize(new Dimension(170, 140));
-                aboutB.setPreferredSize(new Dimension(160, 120));                 
+               
 
             // Modify the default look of JButton; set all of it be invisible, remove borders, and set opaque 
                 playB.setOpaque(false);         // make invisible
@@ -253,9 +250,9 @@ public class SnakeGame {
             exitbuttonpanel.add(exitB); 
         
         // Set location and allow transparency
-            playbuttonpanel.setBounds(25, 445, 170, 150);
+            playbuttonpanel.setBounds(25, 485, 170, 200);
             playbuttonpanel.setOpaque(false);
-            aboutbuttonpanel.setBounds(36, 530, 200, 200);
+            aboutbuttonpanel.setBounds(650, 390, 200, 200);
             aboutbuttonpanel.setOpaque(false);
             exitbuttonpanel.setBounds(750, 500, 170, 150);
             exitbuttonpanel.setOpaque(false);
@@ -339,6 +336,7 @@ public class SnakeGame {
             clip.start();
 
                 // Try to stop the home window bg music when in gameplay
+                    /** TODO: TRY TO APPLY THREADWORKER HERE */
                     EventMaster em = new EventMaster(this);  
                     getCommander = em.deliverCmnd(); 
 

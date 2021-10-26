@@ -118,7 +118,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
             if (e.getSource() == gui.playB) { 
                 System.out.println("HOVERED OVER: Play button label");
 
-                ImageIcon playHoverIcon = new ImageIcon("assets/icons/onHover/play_onHover.png");  
+                ImageIcon playHoverIcon = new ImageIcon("assets/icons/onHover/play2_onHover.png");  
                 gui.playB.setIcon(playHoverIcon);   
 
                 // Attempt to play sound effect 
@@ -131,7 +131,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
             else if (e.getSource() == gui.aboutB) {
                 System.out.println("HOVERED OVER: About button label"); 
 
-                ImageIcon aboutHoverIcon = new ImageIcon("assets/icons/onHover/about_onHover.png");  
+                ImageIcon aboutHoverIcon = new ImageIcon("assets/icons/onHover/about2_onHover.png");  
                 gui.aboutB.setIcon(aboutHoverIcon);  
 
                 // Attempt to play sound effect 
@@ -164,7 +164,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
             if (e.getSource() == gui.playB) { 
                 System.out.println("EXITED OVER: Play button label");
 
-                ImageIcon playHoverIcon_exit = new ImageIcon("assets/icons/play.png");  
+                ImageIcon playHoverIcon_exit = new ImageIcon("assets/icons/play2.png");  
                 gui.playB.setIcon(playHoverIcon_exit);  
             }
             
@@ -172,7 +172,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
             else if (e.getSource() == gui.aboutB) {
                 System.out.println("EXITED OVER: About button label");
 
-                ImageIcon aboutHoverIcon_exit = new ImageIcon("assets/icons/about.png");  
+                ImageIcon aboutHoverIcon_exit = new ImageIcon("assets/icons/about2.png");  
                 gui.aboutB.setIcon(aboutHoverIcon_exit);   
             }
 
