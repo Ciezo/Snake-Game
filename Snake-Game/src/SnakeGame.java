@@ -651,7 +651,7 @@ public class SnakeGame {
                 SnakeProto classic = new SnakeProto(); 
                 classic.setLayout(null);
                 classic.setOpaque(false);
-                classic.setBounds(0, 120, width, height);
+                classic.setBounds(0, 0, width, height);
                 game_frame.add(classic); 
 
 

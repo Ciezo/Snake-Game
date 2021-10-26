@@ -4,15 +4,12 @@ import java.awt.*;
 import java.util.Random;
 import java.io.File;
 import java.awt.Font;
-import java.io.IOException;
-import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
 import javax.sound.sampled.*;
 
 
 public class SnakeProto extends JPanel implements ActionListener{
     static final int SCREEN_WIDTH = 960;
-    static final int SCREEN_HEIGHT = 600;
+    static final int SCREEN_HEIGHT = 720;
     static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;
     static final int DELAY = 75;
@@ -52,6 +49,7 @@ public class SnakeProto extends JPanel implements ActionListener{
     /** Try and implement the same features and techniques we did from the previous classes */ 
     
     SnakeProto() {
+        // frame = new GameFrame(); 
         random = new Random();
         this.setPreferredSize(new Dimension(SCREEN_WIDTH,SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
@@ -61,8 +59,6 @@ public class SnakeProto extends JPanel implements ActionListener{
         
         // Initialize the Image to be rendered        
         img = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/grass_biome-BG_lv1.png");
-
-
 
         // @deprecated 
         // Initialize gameplay background
@@ -137,8 +133,7 @@ public class SnakeProto extends JPanel implements ActionListener{
 
                     if (key == KeyEvent.VK_N) {
                         System.out.println("Restarting game");
-                        new GameFrame(); 
-                        
+                        new GameFrame();
                     }
                     
                     else {
@@ -260,7 +255,7 @@ public class SnakeProto extends JPanel implements ActionListener{
 
     public class MyKeyAdapter extends KeyAdapter{
         @Override
-        public void keyPressed(KeyEvent e){
+        public void keyReleased(KeyEvent e) {
             switch(e.getKeyCode()){
                 case KeyEvent.VK_LEFT:
                     if(direction != 'R') {
@@ -325,174 +320,27 @@ public class SnakeProto extends JPanel implements ActionListener{
 
     public static class GameFrame extends JFrame {
 
-        // JFrame
-        // JFrame game_frame; 
-
-        // Fonts 
-        public static Font timerF; 
-        public static Font scoreF; 
-
-        // Panels
-        JPanel gameplay;
-        JPanel dashboardPanel;
-        JPanel navbar; 
-        JPanel resPanel; 
-        JPanel setPanel; 
-        JPanel menuPanel; 
-        JPanel quiPanel; 
-        JPanel heartPanel;
-        JPanel timerPanel;
-        JPanel scorePanel; 
-
-        // JLabels
-        JLabel dashboard; 
-        JLabel heart1;
-        JLabel heart2;
-        JLabel heart3;
-        JLabel timer; 
-        JLabel scoreLabel; 
-
-        // JButtons for navbar
-        JButton restart; 
-        JButton settings; 
-        JButton menu; 
-        JButton quit; 
-
-
         GameFrame() {
-            // Fonts, try setting up 
-            runFonts();
-
-
+            this.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    System.out.println("Closing game");
+                    System.exit(0);
+                }
+            });
 
             // Set up the frame 
             this.add(new SnakeProto());
             this.setSize(960, 720);
             this.setTitle("Now Playing! Snake Game Classic!");
-            // this.setContentPane(new JLabel(new ImageIcon ("assets/backgrounds/grass_biome-BG_lv1.png")));
-
-            // Set and initialize the dashboard texture with ImageIcon
-            dashboard = new JLabel(new ImageIcon("assets/dashboard/dashboard2.png")); 
-
-            // Set and initialzie the navbar icons: restart, settings, menu, quit with ImageIcon
-            /** ImageIcons to set for the navbar buttohns*/
-            ImageIcon restartIcon = new ImageIcon("assets/icons/restart.png"); 
-            ImageIcon settingsIcon = new ImageIcon("assets/icons/settings.png");
-            ImageIcon menuIcon = new ImageIcon("assets/icons/menu.png");
-            ImageIcon quitIcon = new ImageIcon("assets/icons/quit.png");
-
-             /** Restart navbar button */
-            restart = new JButton(restartIcon);
-
-            /** Settings navbar button */
-            settings = new JButton(settingsIcon);
-
-            /** Menu navbar button */
-            menu = new JButton(menuIcon); 
-
-            /** Quit navbar button */
-            quit = new JButton(quitIcon);
-
-            // Remove the default look of JButton for navbar
-            restart.setOpaque(false);         // make invisible
-            settings.setOpaque(false);        // make invisible
-            menu.setOpaque(false);
-            quit.setOpaque(false);         // make invisible 
-
-            restart.setContentAreaFilled(false); 
-            settings.setContentAreaFilled(false);
-            menu.setContentAreaFilled(false);
-            quit.setContentAreaFilled(false);
-
-            restart.setBorderPainted(false); 
-            settings.setBorderPainted(false);
-            menu.setBorderPainted(false);
-            quit.setBorderPainted(false);
-
-            restart.setFocusPainted(false); 
-            settings.setFocusPainted(false);
-            menu.setFocusPainted(false);
-            quit.setFocusPainted(false);
-
-             // Set and initialize heart icons to set with ImageIcon 
-            ImageIcon h1 = new ImageIcon("assets/icons/hearts.png");
-            ImageIcon h2 = new ImageIcon("assets/icons/hearts.png");
-            ImageIcon h3 = new ImageIcon("assets/icons/hearts.png");
-
-            // Set and initialize hearts label set with ImageIcon 
-            heart1 = new JLabel(h1);
-            heart2 = new JLabel(h2);
-            heart3 = new JLabel(h3); 
-
-
-            // Set and initialize the timer label 
-            timer = new JLabel("0:00");
-            timer.setFont(timerF); 
-            timer.setForeground(new Color(196, 8, 78));
-
-            // Set and initialize the score label
-            scoreLabel = new JLabel("x0"); 
-            scoreLabel.setFont(scoreF);
-            scoreLabel.setForeground(Color.BLACK);
-
-            // Set and initialize the dashboard panel acting as container 
-            /** Panel for dashboard */
-            dashboardPanel = new JPanel(); 
-            dashboardPanel.setOpaque(false); 
-            dashboardPanel.setBounds(25, 1, 910, 250); 
-
-
-            // Add components to dashboard 
-            dashboardPanel.add(dashboard);
-
-            // Add components to frame 
-            // This seems to break everything......
-            // IDK WHY 
-            // IT DOES NOT BEHAVE TO THE WAY IT WAS SUPPOSED TO BE
-            // this.add(dashboardPanel); 
-
 
             // Pack, center, and set visible as true for the frame 
             this.pack();
             this.setLocationRelativeTo(null);
             this.setVisible(true);
         }
-
-
-
     }
 
-
-    public static void runFonts() {
-        Font timerF; 
-        Font scoreF; 
-
-        try {    
-            // Fetch font through File reading from dir
-                /** For timer */
-                timerF = Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/LCDM2N__.TTF")).deriveFont(40f);
-
-                /** For score label */
-                scoreF = Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/Bungee-Regular.ttf")).deriveFont(35f);
-
-            // Create graphics environment to register and render our custom font 
-                GraphicsEnvironment gg = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            
-            // Try, try register font to gg
-                /** Register Timer font */
-                gg.registerFont(timerF);
-                gg.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/LCDM2N__.TTF")));
-
-                /** Register Score Label font */
-                gg.registerFont(scoreF); 
-                gg.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/fonts/Bungee-Regular.ttf")));
-        }     
-        
-        catch (IOException | FontFormatException e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-    }
 
 
     public static void main() {
