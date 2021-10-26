@@ -2,13 +2,14 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.awt.Font;
-import java.io.File;
-import java.awt.GraphicsEnvironment;
 import javax.sound.sampled.*;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.io.File;
+import java.awt.Font;
+import java.net.URI;
+import javax.swing.event.MouseInputAdapter;
+import java.awt.GraphicsEnvironment;
 
 public class SnakeGame {
     
@@ -116,7 +117,7 @@ public class SnakeGame {
             init_mainW();   
             
         // Call the window icon setter 
-            setWindowIcon(); 
+            setWindowIcon(main_frame); 
 
         // Try, and call the function to play audio 
             playBGonStart();     
@@ -309,12 +310,12 @@ public class SnakeGame {
 
 
 
-    public void setWindowIcon() { 
+    public void setWindowIcon(JFrame thisFrame) { 
         JLabel icon = new JLabel("Window icon"); 
         ImageIcon frameIcon = new ImageIcon("assets/items/apples/100x100/apple2.png");   
 
         icon.setIcon(frameIcon); 
-        main_frame.setIconImage(frameIcon.getImage()); 
+        thisFrame.setIconImage(frameIcon.getImage()); 
     }
 
 
@@ -442,17 +443,31 @@ public class SnakeGame {
     }   
     
 
+
+    public void paintComponent(Graphics g) {
+        game_frame.paintComponents(g);
+        draw(g);
+    }
+
+
+
+    public void draw(Graphics g) {
+        // Render the img object
+            // Try render and paint image, rather than setting content pane 
+                img = Toolkit.getDefaultToolkit().createImage("assets/backgrounds/grass_biome-BG_lv1.png");
+                g.drawImage(img, 0, 0, null); 
+    }
+
+
     
     public void setGamePlay() {
         // Initialize the game_frame 
             game_frame = new JFrame(); 
-
-        // Create instance of Classic Snake
-            /** NOTE: Try to new on it runGame */
-                // 
+        
 
         // Set window icon 
-            setWindowIcon();
+            setWindowIcon(game_frame);
+            
 
         // Set and play gameplay music background
             playSound("sfxpack/wav/snakejazz.wav");
@@ -631,6 +646,16 @@ public class SnakeGame {
 
 
 
+        // Create instance of Classic Snake
+            /** NOTE: Try to new on it runGame */
+                SnakeProto classic = new SnakeProto(); 
+                classic.setLayout(null);
+                classic.setOpaque(false);
+                classic.setBounds(0, 120, width, height);
+                game_frame.add(classic); 
+
+
+                
         // Finally, add the panels to frame instance
             game_frame.add(navbar); 
             game_frame.add(heartPanel);
@@ -638,11 +663,8 @@ public class SnakeGame {
             game_frame.add(scorePanel);
             game_frame.add(dashboard_container);
 
-        // Try to fetch Classic Snake and its own Panel to add onto game_frame
-            // prepSnake snake = new prepSnake(); 
-            // game_frame.add(snake.snakePanel); 
-                 
-
+        
+            
         // Pack the frame and set visible as true
             game_frame.pack();
             game_frame.setVisible(true);
@@ -706,15 +728,20 @@ public class SnakeGame {
 
         // Try link to github 
             JLabel link = new JLabel(new ImageIcon("assets/icons/github.png")); 
+        
+        // Try and link to BroCode YouTube channel 
+            JLabel brocode = new JLabel(new ImageIcon("assets/icons/brocode.png"));
+
+        // Link to referral link to which is a reference to the concept of our Snake game code 
+            JLabel referLink = new JLabel(new ImageIcon("assets/icons/referLink.png"));
+
 
         // Try wrapping
             /** About content panel */ 
             msg.setText("<html><body><h1>INSTRUCTIONS</h1><p>Eat some apples to which will be randomly generated across the screen! <br> Avoid getting hit on the walls and do not bite yourself <br> </p><h2>Developers</h2> </body></html>");
 
-            prompt.setText("<html><body><h3>Artwork and Graphics By:</h3><p>Cloyd Secuya <br> </p></body></html>");
-
-
-
+            prompt.setText("<html><body><h3>Artwork and Graphics By:</h3><p>Cloyd Secuya <br> </p> <br> </body></html>");
+            
         // Create a string array of developers 
             String[] devs= { " Cloyd Secuya", 
                             " Darrel Bilbao",                
@@ -728,13 +755,7 @@ public class SnakeGame {
 
         // Link to github feature 
             link.setPreferredSize(new Dimension(100, 100));
-            link.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {}
-
-                @Override
-                public void mousePressed(MouseEvent e) {}
-
+            link.addMouseListener(new MouseInputAdapter() {
                 @Override
                 public void mouseReleased(MouseEvent e) {
                     try {
@@ -746,7 +767,7 @@ public class SnakeGame {
                         e1.printStackTrace();
                     }  
                 }
-
+        
             @Override
             public void mouseEntered(MouseEvent e) {
                 System.out.println("HOVERED OVER: Github link"); 
@@ -767,14 +788,69 @@ public class SnakeGame {
 
         });
 
+        // BroCode link
+            brocode.setPreferredSize(new Dimension(70, 50));
+            brocode.addMouseListener(new MouseInputAdapter() {
+                @Override 
+                public void mouseEntered(MouseEvent e) {
+                    ImageIcon brocode_onHover = new ImageIcon("assets/icons/onHover/brocode_onHover.png");
+                    brocode.setIcon(brocode_onHover);
+                }
 
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    ImageIcon brocode_defaultIcon = new ImageIcon("assets/icons/brocode.png");
+                    brocode.setIcon(brocode_defaultIcon);
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    try {
+                        final URI link = new URI("https://www.youtube.com/c/BroCodez");
+                        Desktop.getDesktop().browse(link); 
+                    } 
+                    
+                    catch (URISyntaxException | IOException e1) {
+                        e1.printStackTrace();
+                    }  
+                }
+            });
+
+            // Referral Link 
+                referLink.setPreferredSize(new Dimension(50, 50));
+                referLink.addMouseListener(new MouseInputAdapter() {
+                    @Override 
+                    public void mouseEntered(MouseEvent e) {
+                        ImageIcon referLink_onHover = new ImageIcon("assets/icons/onHover/referLink_onHover.png");
+                        referLink.setIcon(referLink_onHover);
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        ImageIcon referLink_default = new ImageIcon("assets/icons/referLink.png");
+                        referLink.setIcon(referLink_default);
+                    }
+
+                    @Override 
+                    public void mouseReleased(MouseEvent e) {
+                        try {
+                            final URI link = new URI("https://zetcode.com/javagames/snake/");
+                            Desktop.getDesktop().browse(link); 
+                        } 
+                        
+                        catch (URISyntaxException | IOException e1) {
+                            e1.printStackTrace();
+                        }  
+                    }
+                });
 
         // Add these initialized components in the panel 
             panel.add(msg, BorderLayout.LINE_START); 
-            panel.add(list, BorderLayout.PAGE_END);   
+            panel.add(list, BorderLayout.PAGE_END);  
             panel.add(prompt, BorderLayout.SOUTH); 
-         
-        
+            panel.add(brocode, BorderLayout.EAST);
+            panel.add(referLink, BorderLayout.EAST);
+
 
         // Fetch the instance of frame object and set all given initialized components to it 
             frame_about.getContentPane();

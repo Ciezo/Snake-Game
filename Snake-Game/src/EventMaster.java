@@ -223,7 +223,6 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                             System.out.println("Launching Classic Snake Game"); 
                             classic = new SnakeProto(); 
                             gui.clip.stop(); 
-                            gui.playSound("sfxpack/wav/snakejazz.wav");
                             SnakeProto.main();
                         break; 
 
