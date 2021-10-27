@@ -42,7 +42,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        System.out.println("Coordinates: " + "X: " + e.getX() + "    " + "Y: " + e.getY());
+        // System.out.println("Coordinates: " + "X: " + e.getX() + "    " + "Y: " + e.getY());
     }
 
     @Override
@@ -323,6 +323,41 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                     gui.hanleExit();
 
                 break; 
+
+            /** NAVBAR */
+                case "restart":
+                    System.out.println("Attempting restart upon NAVBAR, restart button");
+
+                    // Attempt to reinitialize and restart the game frame
+                    gui.game_frame.dispose();
+                    gui.init_and_prepGameplayW();
+                    gui.setGamePlay();
+                    break; 
+                
+                case "settings":
+                    System.out.println("Attempting to open settings upon NAVBAR, settings button");
+                    break; 
+                
+                case "menu":
+                    System.out.println("Attempting to go back home upon NAVBAR, menu button");
+
+                    gui.game_frame.dispose();
+                    new SnakeGame(); 
+                    
+                    /** NOTE: THE REINSTANTIATION OF MAIN_FRAME IS MUCH BETTER, SEE LINE OF CODE ABOVE */
+                    // gui.init_mainW();
+                    // gui.setWindowIcon(gui.main_frame);
+                    // gui.main_frame.pack()
+                    // main_frame.setLocationRelativeTo(null);
+                    // main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+                    // gui.main_frame.setVisible(true);
+                    break; 
+                
+                case "quit":
+                    System.out.println("Attempting to quit and close app upon NAVBAR, quit button");
+
+                    gui.hanleExit();
+                    break;     
         }
     }
 
