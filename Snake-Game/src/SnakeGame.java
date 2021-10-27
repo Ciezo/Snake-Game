@@ -103,9 +103,9 @@ public class SnakeGame {
             JLabel timer; 
             JLabel scoreLabel; 
 
-            JButton restart; 
+            JButton restart;
             JButton settings; 
-            JButton menu; 
+            JButton menu;
             JButton quit; 
         
     
@@ -506,6 +506,9 @@ public class SnakeGame {
         /** Quit navbar button */
             quit = new JButton(quitIcon);
 
+            /** IMMEDIATELY APPLY THE ACTION COMMANDERS FOR THE NAVBAR ICONS UPON INSTANTIATION */
+                // navbar_actionCommanders();
+
         // Remove the default look of JButton for navbar
             restart.setOpaque(false);         // make invisible
             settings.setOpaque(false);        // make invisible
@@ -647,6 +650,7 @@ public class SnakeGame {
 
 
         // Create instance of Classic Snake
+            // TODO: RUN INSTANCE HERE
             /** NOTE: Try to new on it runGame */
                 SnakeProto classic = new SnakeProto(); 
                 classic.setLayout(null);
@@ -926,38 +930,69 @@ public class SnakeGame {
             desert_lvlPick.setActionCommand("desertPick");
             winter_lvlPick.setActionCommand("winterPick");
             launch_classicSnake.setActionCommand("classicSnake");
+            
+    }
+
+
+    
+    
+    
+    public void fetchAllListeners () { 
+        // Add mouse motion listener to the frame 
+        main_frame.addMouseMotionListener(handler); 
+        
+        // Add mouse listener to these buttons on the Play, About, Exit 
+        playB.addMouseListener(handler); 
+        aboutB.addMouseListener(handler);
+        exitB.addMouseListener(handler);
+        
+        // Add action listener to these buttons on the Play, About, Exit
+        playB.addActionListener(handler); 
+        aboutB.addActionListener(handler); 
+        exitB.addActionListener(handler);
+        
+        // Add action listener to the level picker as buttons 
+        grass_lvlPick.addActionListener(handler);
+        desert_lvlPick.addActionListener(handler);
+        winter_lvlPick.addActionListener(handler);
+        launch_classicSnake.addActionListener(handler);
+        
+        // Add mouse listener to the level picking buttons 
+        grass_lvlPick.addMouseListener(handler);
+        desert_lvlPick.addMouseListener(handler);
+        winter_lvlPick.addMouseListener(handler); 
+        launch_classicSnake.addMouseListener(handler);        
+    }
+    
+    
+    
+    public void navbar_actionCommanders() {
+        // Set action command to the navbar icons
+        restart.setActionCommand("restart");
+        settings.setActionCommand("settings");
+        menu.setActionCommand("menu");
+        quit.setActionCommand("quit");
     }
 
 
 
-    public void fetchAllListeners () { 
-
-        // Add mouse motion listener to the frame 
-            main_frame.addMouseMotionListener(handler); 
-
-        // Add mouse listener to these buttons on the Play, About, Exit 
-            playB.addMouseListener(handler); 
-            aboutB.addMouseListener(handler);
-            exitB.addMouseListener(handler);
-
-        // Add action listener to these buttons on the Play, About, Exit
-            playB.addActionListener(handler); 
-            aboutB.addActionListener(handler); 
-            exitB.addActionListener(handler);
-
-        // Add action listener to the level picker as buttons 
-            grass_lvlPick.addActionListener(handler);
-            desert_lvlPick.addActionListener(handler);
-            winter_lvlPick.addActionListener(handler);
-            launch_classicSnake.addActionListener(handler);
-
-        // Add mouse listener to the level picking buttons 
-            grass_lvlPick.addMouseListener(handler);
-            desert_lvlPick.addMouseListener(handler);
-            winter_lvlPick.addMouseListener(handler); 
-            launch_classicSnake.addMouseListener(handler);
-
-        // Add mouse listener to the navbar
-
+    public void fetchMouseListener_forNavbar() {
+        // Add mouse listener to the navbar icons 
+            restart.addMouseListener(handler);
+            settings.addMouseListener(handler);
+            menu.addMouseListener(handler);
+            quit.addMouseListener(handler);
+        
+        // Add mouse motion listener to the navbar icons 
+            restart.addMouseMotionListener(handler);
+            settings.addMouseMotionListener(handler);
+            menu.addMouseMotionListener(handler);
+            quit.addMouseMotionListener(handler);
+    
+        // Add action listener to the navbar icons 
+            restart.addActionListener(handler);
+            settings.addActionListener(handler);
+            menu.addActionListener(handler);
+            quit.addActionListener(handler);
     }
 }

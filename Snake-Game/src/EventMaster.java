@@ -112,54 +112,98 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
     public void mouseEntered(MouseEvent e) {
        
         /** HOME PANEL */
-        // In these implementations, we try to change and apply response to the buttons: Play, About, Exit 
-        // That is to say, these buttons should change texture or icon when mouse cursor hovered over 
-            // PLAY button 
-            if (e.getSource() == gui.playB) { 
-                System.out.println("HOVERED OVER: Play button label");
+            // In these implementations, we try to change and apply response to the buttons: Play, About, Exit 
+            // That is to say, these buttons should change texture or icon when mouse cursor hovered over 
+                // PLAY button 
+                if (e.getSource() == gui.playB) { 
+                    System.out.println("HOVERED OVER: Play button label");
 
-                ImageIcon playHoverIcon = new ImageIcon("assets/icons/onHover/play2_onHover.png");  
-                gui.playB.setIcon(playHoverIcon);   
+                    ImageIcon playHoverIcon = new ImageIcon("assets/icons/onHover/play2_onHover.png");  
+                    gui.playB.setIcon(playHoverIcon);   
 
-                // Attempt to play sound effect 
-                    // Call the dedication function handler
-                    System.out.println("Attempting to play hover sound");
-                    gui.playSound("sfxpack/wav/hover.wav");
-            }
-            
-            // ABOUT Button 
-            else if (e.getSource() == gui.aboutB) {
-                System.out.println("HOVERED OVER: About button label"); 
+                    // Attempt to play sound effect 
+                        // Call the dedication function handler
+                        System.out.println("Attempting to play hover sound");
+                        gui.playSound("sfxpack/wav/hover.wav");
+                }
+                
+                // ABOUT Button 
+                else if (e.getSource() == gui.aboutB) {
+                    System.out.println("HOVERED OVER: About button label"); 
 
-                ImageIcon aboutHoverIcon = new ImageIcon("assets/icons/onHover/about2_onHover.png");  
-                gui.aboutB.setIcon(aboutHoverIcon);  
+                    ImageIcon aboutHoverIcon = new ImageIcon("assets/icons/onHover/about2_onHover.png");  
+                    gui.aboutB.setIcon(aboutHoverIcon);  
 
-                // Attempt to play sound effect 
-                    // Call the dedication function handler
-                    System.out.println("Attempting to play hover sound");
-                    gui.playSound("sfxpack/wav/hover.wav");
-            }
+                    // Attempt to play sound effect 
+                        // Call the dedication function handler
+                        System.out.println("Attempting to play hover sound");
+                        gui.playSound("sfxpack/wav/hover.wav");
+                }
 
-            // EXIT Button 
-            else if (e.getSource() == gui.exitB) {
-                System.out.println("HOVERED OVER: Exit button label");
+                // EXIT Button 
+                else if (e.getSource() == gui.exitB) {
+                    System.out.println("HOVERED OVER: Exit button label");
 
-                ImageIcon exitHoverIcon = new ImageIcon("assets/icons/onHover/exit_onHover.png");  
-                gui.exitB.setIcon(exitHoverIcon); 
+                    ImageIcon exitHoverIcon = new ImageIcon("assets/icons/onHover/exit_onHover.png");  
+                    gui.exitB.setIcon(exitHoverIcon); 
 
-                // Attempt to play sound effect 
-                    // Call the dedication function handler
-                    System.out.println("Attempting to play hover sound");
-                    gui.playSound("sfxpack/wav/hover.wav");
-            }
+                    // Attempt to play sound effect 
+                        // Call the dedication function handler
+                        System.out.println("Attempting to play hover sound");
+                        gui.playSound("sfxpack/wav/hover.wav");
+                }
+        
+                
+        /** GAMEPLAY WINDOW on Dashboard.navbar.icons */
+            // In these implementations we are setting some events and actions for the navbar icons, restart, settings, menu, quit, all of which can be found inside the dashboard panel
+            // Moreover, these said navbar icons have their own panel which is navbar. Therefore, we have panel layering
+                // RESTART BUTTON
+                    if (e.getSource() == gui.restart) {
+                        System.out.println("HOVERED OVER: Restart, navbar icon");
+
+                        ImageIcon restIconOnhover = new ImageIcon("assets/icons/onHover/restart_onHover.png");
+
+                        gui.restart.setIcon(restIconOnhover);
+                        gui.playSound("sfxpack/wav/hover.wav");
+                    }
+
+                // SETTINGS BUTTON
+                    else if (e.getSource() == gui.settings) {
+                        System.out.println("HOVERED OVER: Settings, navbar icon");
+
+                        ImageIcon settingsIconOnhover = new ImageIcon("assets/icons/onHover/settings_onHover.png");
+
+                        gui.settings.setIcon(settingsIconOnhover);
+                        gui.playSound("sfxpack/wav/hover.wav");
+                    }
+                
+                // MENU BUTTON
+                    else if (e.getSource() == gui.menu) {
+                        System.out.println("HOVERED OVER: Menu, navbar icon");
+
+                        ImageIcon menIconOnhover = new ImageIcon("assets/icons/onHover/menu_onHover.png");
+
+                        gui.menu.setIcon(menIconOnhover);
+                        gui.playSound("sfxpack/wav/hover.wav");
+                    }
+                
+                // QUIT BUTTON 
+                    else if (e.getSource() == gui.quit) {
+                        System.out.println("HOVERED OVER: Quit, navbar icon");
+
+                        ImageIcon quitIconOnhover = new ImageIcon("assets/icons/onHover/quit_onHover.png");
+
+                        gui.quit.setIcon(quitIconOnhover);
+                        gui.playSound("sfxpack/wav/hover.wav");
+                    }    
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
       
         /** HOME PANEL */
-        // Meanwhile, after the cursor exits over to the buttons components: Play, About, Exit. 
-        // They should revert back to the original icon look and feel         
+            // Meanwhile, after the cursor exits over to the buttons components: Play, About, Exit. 
+            // They should revert back to the original icon look and feel         
             // PLAY Button
             if (e.getSource() == gui.playB) { 
                 System.out.println("EXITED OVER: Play button label");
@@ -183,6 +227,46 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                 ImageIcon exitHoverIcon_exit = new ImageIcon("assets/icons/exit.png");   
                 gui.exitB.setIcon(exitHoverIcon_exit);
             }
+
+
+        /** GAMEPLAY WINDOW on Dashboard.navbar.icons */
+            // In these implementations we are setting some events and actions for the navbar icons, restart, settings, menu, quit, all of which can be found inside the dashboard panel
+            // Moreover, these said navbar icons have their own panel which is navbar. Therefore, we have panel layering
+                // RESTART BUTTON
+                    if (e.getSource() == gui.restart) {
+                        System.out.println("EXITED OVER: Restart, navbar icon");
+
+                        ImageIcon restIcon = new ImageIcon("assets/icons/restart.png");
+
+                        gui.restart.setIcon(restIcon);
+                    }
+
+                // SETTINGS BUTTON
+                    else if (e.getSource() == gui.settings) {
+                        System.out.println("EXITED OVER: Settings, navbar icon");
+
+                        ImageIcon settingsIcon = new ImageIcon("assets/icons/settings.png");
+
+                        gui.settings.setIcon(settingsIcon);
+                    }
+                
+                // MENU BUTTON
+                    else if (e.getSource() == gui.menu) {
+                        System.out.println("EXITED OVER: Menu, navbar icon");
+
+                        ImageIcon menIcon = new ImageIcon("assets/icons/menu.png");
+
+                        gui.menu.setIcon(menIcon);
+                    }
+                
+                // QUIT BUTTON 
+                    else if (e.getSource() == gui.quit) {
+                        System.out.println("EXITED OVER: Quit, navbar icon");
+
+                        ImageIcon quiIcon = new ImageIcon("assets/icons/quit.png");
+
+                        gui.quit.setIcon(quiIcon);
+                    }         
     }
 
     @Override
@@ -206,6 +290,8 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                             System.out.println("Fetching images and assets files");
                             gui.init_and_prepGameplayW(); 
                             gui.setGamePlay(); 
+                            gui.navbar_actionCommanders();
+                            gui.fetchMouseListener_forNavbar();
                             deliverCmnd();
                             gui.game_frame.repaint();
                             
