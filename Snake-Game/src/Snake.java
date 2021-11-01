@@ -16,7 +16,7 @@ public class Snake extends JPanel implements ActionListener {
     final int y[] = new int[GAME_UNITS];
     static final int DELAY = 75;
 
-    int snakeBodyCount = 4; 
+    int snakeBodyCount = 1; 
     int apples;
     int apple_X;
     int apple_Y;
@@ -42,14 +42,11 @@ public class Snake extends JPanel implements ActionListener {
         // Setting up and initialzing the panel
             this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
             this.setLayout(null);
-            this.setOpaque(false); 
-            // this.setBackground(Color.black);
+            // this.setOpaque(false); 
+            this.setBackground(Color.black);
             this.setFocusable(true); 
             this.addKeyListener(new GLOBAL_MOVEMENT());
         
-        // Random instance
-            random = new Random(); 
-
         // TODO: Add function to initialize and prep all panel resources
             init_globalPanel();
 
@@ -69,12 +66,6 @@ public class Snake extends JPanel implements ActionListener {
 
 
     private void prep_GameMechanic() { 
-        // // Values set up for X-coords and Y-coords 
-        //     for (int i = 0; i < snakeBodyCount; i++) {
-        //         x[i] = 0; 
-        //         y[i] = 0;     
-        //     }
-        
         // Prep and init the apple coords
             appleCoordSys();
         
@@ -103,15 +94,18 @@ public class Snake extends JPanel implements ActionListener {
                 // Render the apple graphic
                 g.drawImage(apple_render, apple_X, apple_Y, this);
 
+                /** TEST CASE FOR APPLE RENDERING SAMPLE OBJECT */
+                // g.setColor(Color.red);
+                // g.fillOval(apple_X, apple_Y, SIZE_CHUNK, SIZE_CHUNK);
+
                 for (int i = 0; i < snakeBodyCount; i++) {
                     if (i == 0) {
                         // Try and render the snake head
                             g.drawImage(snakeHeadChunk, x[i], y[i], this); 
                         
                         // Try and render the tail 
-                            g.drawImage(snakeTailChunk, x[i], y[i], this);
+                            // g.drawImage(snakeTailChunk, x[i], y[i], this);
 
-                        
                         /** TEST CASE for head 
                          * Uncomment if necessary for test casing
                         // */
@@ -121,13 +115,13 @@ public class Snake extends JPanel implements ActionListener {
                     
                     else {
                         // Try and render the snake body 
-                        g.drawImage(snakeBodyChunk, x[i], y[i], this);
+                            // g.drawImage(snakeBodyChunk, x[i], y[i], this);
 
                         /** TEST CASE for body 
                          * Uncomment if necessary for test casing
                         // */
-                        // g.setColor(Color.blue);
-                        // g.fillRect(x[i], y[i], SIZE_CHUNK, SIZE_CHUNK);
+                        g.setColor(Color.blue);
+                        g.fillRect(x[i], y[i], SIZE_CHUNK, SIZE_CHUNK);
                     }
                 }
 
@@ -146,11 +140,14 @@ public class Snake extends JPanel implements ActionListener {
 
 
     private void appleCoordSys() {
+         // Random instance
+            random = new Random(); 
+
         // Apple X-coord
             apple_X = random.nextInt((int)(WIDTH/SIZE_CHUNK))*SIZE_CHUNK;
 
-        // Apple X-coord
-            apple_Y = random.nextInt((int)(WIDTH/SIZE_CHUNK))*SIZE_CHUNK;
+        // Apple Y-coord
+            apple_Y = random.nextInt((int)(HEIGHT/SIZE_CHUNK))*SIZE_CHUNK;
     }
 
 
