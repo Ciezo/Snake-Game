@@ -16,7 +16,7 @@ public class Snake extends JPanel implements ActionListener {
     final int y[] = new int[GAME_UNITS];
     static final int DELAY = 75;
 
-    int snakeBodyCount = 1; 
+    int snakeBodyCount = 2; 
     int apples;
     int apple_X;
     int apple_Y;
@@ -104,24 +104,22 @@ public class Snake extends JPanel implements ActionListener {
                             g.drawImage(snakeHeadChunk, x[i], y[i], this); 
                         
                         // Try and render the tail 
-                            // g.drawImage(snakeTailChunk, x[i], y[i], this);
+                            g.drawImage(snakeTailChunk, x[i], y[i], this);
 
                         /** TEST CASE for head 
-                         * Uncomment if necessary for test casing
-                        // */
-                        // g.setColor(Color.CYAN);                     
-                        // g.fillRect(x[i], y[i], SIZE_CHUNK, SIZE_CHUNK);
+                         * Uncomment if necessary for test casing */  
+                            // g.setColor(Color.CYAN);                     
+                            // g.fillRect(x[i], y[i], SIZE_CHUNK, SIZE_CHUNK);
                     }
                     
                     else {
                         // Try and render the snake body 
-                            // g.drawImage(snakeBodyChunk, x[i], y[i], this);
+                            g.drawImage(snakeBodyChunk, x[i], y[i], this);
 
                         /** TEST CASE for body 
-                         * Uncomment if necessary for test casing
-                        // */
-                        g.setColor(Color.blue);
-                        g.fillRect(x[i], y[i], SIZE_CHUNK, SIZE_CHUNK);
+                         * Uncomment if necessary for test casing */  
+                            // g.setColor(Color.blue);
+                            // g.fillRect(x[i], y[i], SIZE_CHUNK, SIZE_CHUNK);
                     }
                 }
 
