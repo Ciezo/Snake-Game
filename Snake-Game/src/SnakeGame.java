@@ -652,13 +652,12 @@ public class SnakeGame {
         // Create instance of Classic Snake
             // TODO: RUN INSTANCE HERE
             /** NOTE: Try to new on it runGame */
-                SnakeProto classic = new SnakeProto(); 
-                classic.setLayout(null);
-                classic.setOpaque(false);
-                classic.setBounds(0, 0, width, height);
-                game_frame.add(classic); 
-
-
+                Snake snake = new Snake(); 
+                snake.setLayout(null);
+                snake.setOpaque(false);
+                snake.setBounds(0, 0, snake.getWidth(), snake.getHeight());
+                // snake.setLocation(0, 120);
+                game_frame.add(snake); 
                 
         // Finally, add the panels to frame instance
             game_frame.add(navbar); 

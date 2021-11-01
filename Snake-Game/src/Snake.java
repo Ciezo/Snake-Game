@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
 import java.io.File;
+import java.net.CacheRequest;
+
 import javax.sound.sampled.*;
 
 
@@ -16,6 +18,9 @@ public class Snake extends JPanel implements ActionListener {
     final int y[] = new int[GAME_UNITS];
     static final int DELAY = 75;
 
+    boolean gridFlag; 
+    boolean removeGridFlag; 
+
     int snakeBodyCount = 2; 
     int apples;
     int apple_X;
@@ -27,8 +32,7 @@ public class Snake extends JPanel implements ActionListener {
     Random random;  
 
     Image snakeBodyChunk; 
-    Image snakeHeadChunk; 
-    Image snakeTailChunk; 
+    Image snakeHeadChunk;
     Image apple_render; 
 
     File audio;
@@ -42,8 +46,9 @@ public class Snake extends JPanel implements ActionListener {
         // Setting up and initialzing the panel
             this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
             this.setLayout(null);
-            // this.setOpaque(false); 
-            this.setBackground(Color.black);
+            // this.setBounds(0, 120, WIDTH, HEIGHT);
+            // this.setLocation(0, 120);
+            this.setOpaque(false); 
             this.setFocusable(true); 
             this.addKeyListener(new GLOBAL_MOVEMENT());
         
@@ -90,9 +95,26 @@ public class Snake extends JPanel implements ActionListener {
         // If user is in-game, or as, game_isRunning == true
         // Then..Start rendering objects
             if (game_isRunning) {
+                // Add some grid lines
+                    if (gridFlag == true) {
+                        // Draw and render grid lines
+                        for (int j = 0; j < HEIGHT/SIZE_CHUNK; j++) {
+                            g.drawLine(j*SIZE_CHUNK, 0, j*SIZE_CHUNK, HEIGHT);
+                            g.drawLine(0, j*SIZE_CHUNK, WIDTH, j*SIZE_CHUNK);
+                        }
+                    }
+
+                    /** NOTE THIS IS CAUSING SOME BUGS, WE NEED A BETTER METHOD TO REMOVE THE GRIDLINES */
+                    if (removeGridFlag == true) {
+                        // Try and remove grid lines
+                        // for (int i = 0; i < HEIGHT/SIZE_CHUNK; i++) {
+                        //     g.clearRect(i*SIZE_CHUNK, 0, i*SIZE_CHUNK, HEIGHT);
+                        //     g.clearRect(0, i*SIZE_CHUNK, WIDTH, i*SIZE_CHUNK);
+                        // }
+                    }
 
                 // Render the apple graphic
-                g.drawImage(apple_render, apple_X, apple_Y, this);
+                    g.drawImage(apple_render, apple_X, apple_Y, this);
 
                 /** TEST CASE FOR APPLE RENDERING SAMPLE OBJECT */
                 // g.setColor(Color.red);
@@ -103,9 +125,6 @@ public class Snake extends JPanel implements ActionListener {
                         // Try and render the snake head
                             g.drawImage(snakeHeadChunk, x[i], y[i], this); 
                         
-                        // Try and render the tail 
-                            g.drawImage(snakeTailChunk, x[i], y[i], this);
-
                         /** TEST CASE for head 
                          * Uncomment if necessary for test casing */  
                             // g.setColor(Color.CYAN);                     
@@ -124,7 +143,7 @@ public class Snake extends JPanel implements ActionListener {
                 }
 
                 // Sync all graphical state
-                Toolkit.getDefaultToolkit().sync();
+                    Toolkit.getDefaultToolkit().sync();
 
             }
 
@@ -250,12 +269,8 @@ public class Snake extends JPanel implements ActionListener {
             ImageIcon snk_HeadChunk__LOAD = new ImageIcon("assets/snake/head.png");
             snakeHeadChunk = snk_HeadChunk__LOAD.getImage();
             
-            /** SNAKE TAIL */
-            ImageIcon snk_TailChunk__LOAD = new ImageIcon("assets/snake/tail.png"); 
-            snakeTailChunk = snk_TailChunk__LOAD.getImage();
-
             /** APPLE RENDERING */
-            ImageIcon apple__LOAD = new ImageIcon("assets/items/apples/25x25/apple2.png");
+            ImageIcon apple__LOAD = new ImageIcon("assets/items/apples/50x50/apple2.png");
             apple_render = apple__LOAD.getImage(); 
     }
     
@@ -378,14 +393,44 @@ public class Snake extends JPanel implements ActionListener {
                             playSound("sfxpack/wav/R_m.wav");
                         }
                     break;
+                
+
+                /** KEYSTROKE 'G' */    
+                    case KeyEvent.VK_G:
+                        System.out.println("Adding some gridlines");
+                        System.out.println("Keystroke G: isPressed!");
+                        
+                        // Set boolean for activating grid to true
+                        gridFlag = true; 
+                    break; 
+                
+
+                /** KEYSTORE 'H' */
+                    case KeyEvent.VK_H:
+                        System.out.println("Removing gridlines");
+
+                        // Set boolean flag for grid lines to false
+                        removeGridFlag= true; 
+                    break;
             }
         }
     }
+    
+    
+    
+    public int getWidth() {
+        return WIDTH;
+    }
+    
+    public int getHeight() {
+        return HEIGHT; 
+    }
+
 
 
     /** NOTE:
-     *  RUN AND TEST THROUGH MAIN 
-     */ public static void main(String[] args) {
+     *  RUN AND TEST THROUGH MAIN, uncomment if needed tests to run this instance ALONE */ 
+    public static void main(String[] args) {
             // Create an instance of a frame
             JFrame frame = new JFrame("Snake"); 
 
@@ -400,5 +445,5 @@ public class Snake extends JPanel implements ActionListener {
             frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
-        }
+    }
 }   
