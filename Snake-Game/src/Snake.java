@@ -3,33 +3,32 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
 import java.io.File;
-import java.net.CacheRequest;
-
 import javax.sound.sampled.*;
 
 
 public class Snake extends JPanel implements ActionListener {
 
-    private final int WIDTH = 960; 
-    private final int HEIGHT = 720; 
-    private final int SIZE_CHUNK = 25; 
-    private final int GAME_UNITS = (WIDTH*HEIGHT)/SIZE_CHUNK;
-    final int x[] = new int[GAME_UNITS];
-    final int y[] = new int[GAME_UNITS];
+    private static final int WIDTH = 960; 
+    private static final int HEIGHT = 720; 
+    private static final int SIZE_CHUNK = 25; 
+    private static final int GAME_UNITS = (WIDTH*HEIGHT)/SIZE_CHUNK;
+    final static  int x[] = new int[GAME_UNITS];
+    final static int y[] = new int[GAME_UNITS];
     static final int DELAY = 75;
 
     boolean gridFlag; 
     boolean removeGridFlag; 
 
-    int snakeBodyCount = 2; 
-    int apples;
-    int apple_X;
-    int apple_Y;
+    static int heartCount = 3; 
+    static int snakeBodyCount = 2; 
+    static int apples;
+    static int apple_X;
+    static int apple_Y;
 
     char directionTo = 'R';
     boolean game_isRunning = true;          // Try and set already to true, so, we can meet the condition to render the Snake character
     Timer timer; 
-    Random random;  
+    static Random random;  
 
     Image snakeBodyChunk; 
     Image snakeHeadChunk;
@@ -40,7 +39,6 @@ public class Snake extends JPanel implements ActionListener {
     AudioFormat format;
     DataLine.Info info;
     Clip clip;
-
 
     public Snake() {
         // Setting up and initialzing the panel
@@ -54,7 +52,6 @@ public class Snake extends JPanel implements ActionListener {
         
         // TODO: Add function to initialize and prep all panel resources
             init_globalPanel();
-
     }
 
 
@@ -105,13 +102,13 @@ public class Snake extends JPanel implements ActionListener {
                     }
 
                     /** NOTE THIS IS CAUSING SOME BUGS, WE NEED A BETTER METHOD TO REMOVE THE GRIDLINES */
-                    if (removeGridFlag == true) {
-                        // Try and remove grid lines
-                        // for (int i = 0; i < HEIGHT/SIZE_CHUNK; i++) {
-                        //     g.clearRect(i*SIZE_CHUNK, 0, i*SIZE_CHUNK, HEIGHT);
-                        //     g.clearRect(0, i*SIZE_CHUNK, WIDTH, i*SIZE_CHUNK);
-                        // }
-                    }
+                    // if (removeGridFlag == true) {
+                    //     // Try and remove grid lines
+                    //     for (int i = 0; i < HEIGHT/SIZE_CHUNK; i++) {
+                    //         g.clearRect(i*SIZE_CHUNK, 0, i*SIZE_CHUNK, HEIGHT);
+                    //         g.clearRect(0, i*SIZE_CHUNK, WIDTH, i*SIZE_CHUNK);
+                    //     }
+                    // }
 
                 // Render the apple graphic
                     g.drawImage(apple_render, apple_X, apple_Y, this);
@@ -156,7 +153,7 @@ public class Snake extends JPanel implements ActionListener {
 
 
 
-    private void appleCoordSys() {
+    private static void appleCoordSys() {
          // Random instance
             random = new Random(); 
 
@@ -169,16 +166,46 @@ public class Snake extends JPanel implements ActionListener {
 
 
 
-    private void appleCountANDcheck() {
+    private static void appleCountANDcheck() {
         // This helps to check whether the x and y coords of snake character is colliding with the apple coords of x and y 
         if ((x[0] == apple_X) && (y[0] == apple_Y)) {
-            snakeBodyCount++; 
+            snakeBodyCount++;
             apples++; 
             System.out.println("Apples eaten: " + apples);
+
+            // Try and set the score updates to the dashboard
+            /** TODO: TRY AND FETCH THE SCORE LABEL FROM GAMEPLAY DASHBOARD TO UPDATE ACCORDING TO THE APPLES EATEN */
+            updateToDashboard();
 
             // Call the dedicated method to generate new coords for apple
             appleCoordSys();
         } 
+    }
+
+
+
+    public static void updateToDashboard() {
+        // Log to console
+        System.out.println("Updating dashboard!");
+        System.out.println("\t \t **Score value from updateToDashboard: " + apples + "**");
+        System.out.println("\t \t Hearts count: " + heartCount);
+        
+        // Update score value on dashboard
+        SnakeGame.setScoreOnDashBoardLabel("x" + String.valueOf(apples));
+
+        // Update the heart count accordingly when the snake gets hurt
+        if (heartCount == 2) {
+            SnakeGame.heartPanel.remove(SnakeGame.heart1);
+        }
+
+        else if (heartCount == 1) {
+            SnakeGame.heartPanel.remove(SnakeGame.heart2);
+        }
+
+        else if (heartCount == 0) {
+            SnakeGame.heartPanel.remove(SnakeGame.heart3);
+        }
+
     }
 
 
@@ -225,28 +252,77 @@ public class Snake extends JPanel implements ActionListener {
          *  itself 
          */ for (int i = snakeBodyCount; i > 0; i--) {
                 if ((x[0] == x[i] && y[0] == y[i])) {
-                    game_isRunning = false;
+                    heartCount--; 
+                    System.out.println("Snake has bitten itself and it's hurt!");
+                    System.out.println("Remaining hearts left: " + heartCount);
+                    playSound("sfxpack/wav/hurt.wav");
+                    
+                    if (heartCount == 0) {
+                        System.out.println("You have ran out of hearts because you bit yourself! GAME OVER");
+                        game_isRunning = false;
+                        playSound("sfxpack/wav/gameOver.wav");
+                    }
                 }
             }
         
         // A condition to see if the current x-cord is less than zero, meaning it can be out of bounds!
         if (x[0] < 0) {
-            game_isRunning = false;
+            heartCount--; 
+            if (heartCount == 0) {
+                System.out.println("You have ran out of hearts as you kept trying to injure yourself!");
+                game_isRunning = false;
+                playSound("sfxpack/wav/gameOver.wav");
+            }
         }
 
         // Out of bounds check, on width of screen  
         if (x[0] > WIDTH) {
-            game_isRunning = false;
+            heartCount--; 
+            System.out.println("\t SNAKE OUT OF BOUNDS ON X-CORD OF X_arr");
+
+
+            System.out.println("STOP GOING OUTSIDE BOUNDARIES! YOU ARE GOING TO HURT YOURSELF!");
+            System.out.println("Remaining hearts left: " + heartCount);
+            playSound("sfxpack/wav/hurt.wav");
+
+            if (heartCount == 0) {
+                System.out.println("You have ran out of hearts as you tried going out of horizontal bounds");
+                System.out.println("YOU WENT TOO FAR OUTSIDE GAME BOUNDARIES! GAME OVER!");
+                game_isRunning = false;
+                playSound("sfxpack/wav/gameOver.wav");
+            }
         }
 
         // Out of bounds check again, on y-cord
         if (y[0] < 0) {
-            game_isRunning = false;
+            heartCount--; 
+            System.out.println("\t SNAKE BITE OUT OF BOUNDS ON Y-CORD OF Y_arr");
+
+
+            System.out.println("STOP GOING OUTSIDE BOUNDARIES! YOU ARE GOING TO HURT YOURSELF!");
+            System.out.println("Remaining hearts left: " + heartCount);
+            playSound("sfxpack/wav/hurt.wav");
+
+            if (heartCount == 0) {
+                System.out.println("You have ran out of hearts as you kept trying to injure yourself!");
+                game_isRunning = false;
+                playSound("sfxpack/wav/gameOver.wav");
+            }
         }
 
         // Out of bounds check, on height of screen 
         if (y[0] > HEIGHT) {
-            game_isRunning = false;
+            heartCount--; 
+            System.out.println("STOP GOING OUTSIDE BOUNDARIES! YOU ARE GOING TO HURT YOURSELF!");
+            System.out.println("Remaining hearts left: " + heartCount);
+            playSound("sfxpack/wav/hurt.wav");
+
+            if (heartCount == 0) {
+                System.out.println("You have ran out of hearts as you tried going out of horizontal bounds");
+                System.out.println("YOU WENT TOO FAR OUTSIDE GAME BOUNDARIES! GAME OVER!");
+                game_isRunning = false;
+                playSound("sfxpack/wav/gameOver.wav");
+            }
         }
 
         // This goes back to the for-loop, whereas, the boolean flag for game running is set to false. Stop the game!
@@ -284,6 +360,7 @@ public class Snake extends JPanel implements ActionListener {
             movementTo();                   // Snake movement
             appleCountANDcheck();           // Apple counts and apple checking
             collisionDetectionSys();        // Object collision checker
+            updateToDashboard();            // Update values for dashboard
         }
 
         // Repaint the frame
@@ -302,7 +379,7 @@ public class Snake extends JPanel implements ActionListener {
             clip.open(stream);
             clip.start();
 
-            System.out.println("Trying to play SFX");
+            // System.out.println("Trying to play SFX");
         }
 
         catch (Exception e) {
@@ -410,7 +487,7 @@ public class Snake extends JPanel implements ActionListener {
                         System.out.println("Removing gridlines");
 
                         // Set boolean flag for grid lines to false
-                        removeGridFlag= true; 
+                        removeGridFlag = true; 
                     break;
             }
         }
@@ -430,20 +507,20 @@ public class Snake extends JPanel implements ActionListener {
 
     /** NOTE:
      *  RUN AND TEST THROUGH MAIN, uncomment if needed tests to run this instance ALONE */ 
-    public static void main(String[] args) {
-            // Create an instance of a frame
-            JFrame frame = new JFrame("Snake"); 
+    // public static void main(String[] args) {
+    //         // Create an instance of a frame
+    //         JFrame frame = new JFrame("Snake"); 
 
-            // Set some properties
-            frame.setResizable(false);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //         // Set some properties
+    //         frame.setResizable(false);
+    //         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             
-            // Add the Snake panel 
-            frame.add(new Snake());
+    //         // Add the Snake panel 
+    //         frame.add(new Snake());
             
-            // Pack, center, and set visible as true for the frame 
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-    }
+    //         // Pack, center, and set visible as true for the frame 
+    //         frame.pack();
+    //         frame.setLocationRelativeTo(null);
+    //         frame.setVisible(true);
+    // }
 }   

@@ -64,7 +64,7 @@ public class SnakeGame {
             JPanel setPanel; 
             JPanel menuPanel; 
             JPanel quiPanel; 
-            JPanel heartPanel;
+            static JPanel heartPanel;
             JPanel timerPanel;
             JPanel scorePanel; 
 
@@ -97,11 +97,11 @@ public class SnakeGame {
         /** For Gameplay Window */ 
             JLabel gameplayBG;  
             JLabel dashboard; 
-            JLabel heart1;
-            JLabel heart2;
-            JLabel heart3;
+            static JLabel heart1;
+            static JLabel heart2;
+            static JLabel heart3;
             JLabel timer; 
-            JLabel scoreLabel; 
+            static JLabel scoreLabel; 
 
             JButton restart;
             JButton settings; 
@@ -650,22 +650,18 @@ public class SnakeGame {
 
 
         // Create instance of Classic Snake
-            // TODO: RUN INSTANCE HERE
-            /** NOTE: Try to new on it runGame */
-                Snake snake = new Snake(); 
-                snake.setLayout(null);
-                snake.setOpaque(false);
-                snake.setBounds(0, 0, snake.getWidth(), snake.getHeight());
-                // snake.setLocation(0, 120);
-                game_frame.add(snake); 
+            // TODO: RUN INSTANCE OF SNAKE HERE
+            /** NOTE: Try to new on it runUpdates__AND__Game() */
+                runUpdates__AND__Game();
                 
-        // Finally, add the panels to frame instance
-            game_frame.add(navbar); 
-            game_frame.add(heartPanel);
-            game_frame.add(timerPanel);
-            game_frame.add(scorePanel);
-            game_frame.add(dashboard_container);
 
+                // Finally, add the panels to frame instance
+                game_frame.add(navbar); 
+                game_frame.add(heartPanel);
+                game_frame.add(timerPanel);
+                game_frame.add(scorePanel);
+                game_frame.add(dashboard_container);
+            
         
             
         // Pack the frame and set visible as true
@@ -676,26 +672,23 @@ public class SnakeGame {
 
 
 
-    // Try, start the SnakeGame upon a call of a dedicated function 
+    // Try, update the informative contents on dashboard such as score and heart count
         /** NOTE: 
          *  This should be called after init_gameplay and setGameplay 
          *  Moreover, the screen, game_frame, must contain the snake movement and such */ 
-    public void runGame() { 
-          
+    public void runUpdates__AND__Game() { 
+        Snake snake = new Snake(); 
+        
+        snake.setLayout(null);
+        snake.setOpaque(false);
+        snake.setBounds(0, 0, snake.getWidth(), snake.getHeight());
+        // snake.setLocation(0, 120);
+        
+
+        // Then, add this instance of Snake to the game_frame
+        game_frame.add(snake); 
     }
 
-    class prepSnake {
-        // JPanel
-            JPanel snakePanel; 
-        
-        // Values
-            int unitSize = 25; 
-            int game_units = (width*height)/unitSize;
-            int delay = 75; 
-        
-        // 
-
-    }
 
 
     public void handleAbout() {
@@ -993,5 +986,17 @@ public class SnakeGame {
             settings.addActionListener(handler);
             menu.addActionListener(handler);
             quit.addActionListener(handler);
+    }
+
+
+
+    public static JLabel getScoreOnDashBoardLabel() {
+        return scoreLabel; 
+    }
+
+
+
+    public static void setScoreOnDashBoardLabel(String scoreJLabel) {
+        scoreLabel.setText(scoreJLabel); 
     }
 }
