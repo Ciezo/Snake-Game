@@ -13,27 +13,26 @@ import java.awt.GraphicsEnvironment;
 
 public class SnakeGame {
     
-    // Classic Snake Instance
-        // 
-        
+    // SwingWorker or Thread worker 
+        static Worker worker = new Worker();
 
     // Values 
         public int width = 960; 
         public int height = 720;
 
     // Sets and values
-        String getCommander;     
+        static String getCommander;     
 
     // Fonts   
         Font timerF; 
         Font scoreF;   
 
     // Try, play audio on background
-        File audio;
-        AudioInputStream stream;
-        AudioFormat format;
-        DataLine.Info info;
-        Clip clip;
+        static File audio;
+        static AudioInputStream stream;
+        static AudioFormat format;
+        static DataLine.Info info;
+        static Clip clip;
     
     // Image rendering, try 
         Image img; 
@@ -87,7 +86,7 @@ public class SnakeGame {
                 // A JFrame
                     JFrame levelChooser_container; 
                 // Levels picker 
-                    JButton grass_lvlPick = new JButton("Grass Biome"); 
+                    static JButton grass_lvlPick = new JButton("Grass Biome"); 
                     JButton desert_lvlPick = new JButton("Desert Biome");
                     JButton winter_lvlPick = new JButton("Winter Biome");
                     JButton launch_classicSnake = new JButton("Launch Classic Snake by BroCode");
@@ -108,7 +107,7 @@ public class SnakeGame {
             JButton menu;
             JButton quit; 
         
-    
+    // TODO: Class constructor
     public SnakeGame() {
         // Fonts, try setting up 
             runFonts(); 
@@ -119,8 +118,8 @@ public class SnakeGame {
         // Call the window icon setter 
             setWindowIcon(main_frame); 
 
-        // Try, and call the function to play audio 
-            playBGonStart();     
+        // Try, and call the function to play background music 
+            // playBGonStart();     
             
         // Call Action commanders 
             actionCommanders();
@@ -133,6 +132,9 @@ public class SnakeGame {
             main_frame.setLocationRelativeTo(null);
             main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
             main_frame.setVisible(true); 
+
+        // Execute the SwingWorker 
+             worker.execute();
     }
 
 
@@ -274,6 +276,7 @@ public class SnakeGame {
             main_frame.add(aboutbuttonpanel);
             main_frame.add(exitbuttonpanel); 
             main_frame.add(titlecardpanel);
+
     }
 
 
@@ -320,7 +323,7 @@ public class SnakeGame {
 
 
 
-    public void playBGonStart() {
+    public static void playBGonStart() {
         try {
             // File yourFile;
             // AudioInputStream stream;
@@ -336,18 +339,8 @@ public class SnakeGame {
             clip.open(stream);
             clip.start();
 
-                // Try to stop the home window bg music when in gameplay
-                    /** TODO: TRY TO APPLY THREADWORKER HERE */
-                    EventMaster em = new EventMaster(this);  
-                    getCommander = em.deliverCmnd(); 
-
-                    if (getCommander == "grassPick") {
-                        // Log the level option to console 
-                        System.out.println(getCommander);
-                        stream.close();
-                        clip.stop();
-                        clip.close();
-                    }
+                // @NOTE: Try to stop the home window bg music when in gameplay
+                    
 
             System.out.println("Trying to play music audio file");
         }
@@ -414,9 +407,19 @@ public class SnakeGame {
 
 
     public void init_and_prepGameplayW() {
+        /** NOTE:
+         *      IT CANNOT CLOSE NOR STOP STREAMING THE FIRST AUDIO MUSIC WHICH IS FROM MAIN WINDOW
+         *      ONE POSSIBLE SOLUTION IS WE REALLY IMPLEMENT THE THREADS
+         */
         // Try and stop the music
             clip.stop();
             clip.close();
+            
+            // Try, try and close the audio input stream
+            try { stream.close(); } 
+            catch (IOException e) { e.printStackTrace(); }
+            
+            
 
         // Create a fresh instance for gameplay frame 
             game_frame = new JFrame(); 

@@ -11,7 +11,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
     SnakeGame gui; 
     SnakeProto classic; 
     
-    public String commander; 
+    public static String commander; 
 
     public EventMaster(SnakeGame gui) {
         this.gui = gui;
@@ -271,7 +271,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        
         commander = e.getActionCommand(); 
         switch (commander) {
 
@@ -280,6 +280,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                     System.out.println("Action performed: Play button");
                     System.out.println("Picking a level");
                     gui.prepLevelPicker(); 
+                    deliverCmnd();
                     
                 break;  
                 
@@ -295,6 +296,10 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                             deliverCmnd();
                             gui.game_frame.repaint();
                             
+                            // Try to find out what is happening to the Worker at this moment
+                                /** TODO: THE BACKGROUND THREAD IS IN HERE */
+                                System.out.println("\t \t ****Worker state: " + Worker.fetchers); 
+
                         break; 
 
                         case "desertPick":
@@ -361,11 +366,10 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
         }
     }
 
-    public String deliverCmnd() {
+    public static String deliverCmnd() {
         // Log to console the given action command 
-            System.out.println(commander);
+            System.out.println("\t Returning action command: " + commander);
 
         return commander; 
     }
-
 }

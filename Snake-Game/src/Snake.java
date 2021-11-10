@@ -26,7 +26,7 @@ public class Snake extends JPanel implements ActionListener {
     static int apple_Y;
 
     char directionTo = 'R';
-    boolean game_isRunning = true;          // Try and set already to true, so, we can meet the condition to render the Snake character
+    static boolean game_isRunning = true;          // Try and set already to true, so, we can meet the condition to render the Snake character
     Timer timer; 
     static Random random;  
 
