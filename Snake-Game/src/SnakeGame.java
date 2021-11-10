@@ -913,6 +913,13 @@ public class SnakeGame {
     }
 
 
+    
+    public void handleInDevelopmentStatus__prompt() {
+        // Instantiate a pop-up dialog
+        JOptionPane.showMessageDialog(null, "This section of the game is still in development!", "Status: NOTICE!", JOptionPane.INFORMATION_MESSAGE); 
+    }
+
+
 
     public void actionCommanders() {
         // Set action command to these buttons 
@@ -929,9 +936,7 @@ public class SnakeGame {
     }
 
 
-    
-    
-    
+        
     public void fetchAllListeners () { 
         // Add mouse motion listener to the frame 
         main_frame.addMouseMotionListener(handler); 

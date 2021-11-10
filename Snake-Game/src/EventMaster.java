@@ -304,10 +304,18 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
 
                         case "desertPick":
                             System.out.println("Desert IN DEVELOPMENT");
+                            
+                            // Pop the status notice
+                            gui.handleInDevelopmentStatus__prompt();
+                        
                         break; 
 
                         case "winterPick":
                             System.out.println("Winter IN DEVELOPMENT");
+
+                            // Pop the status notice
+                            gui.handleInDevelopmentStatus__prompt();
+
                         break; 
 
                         case "classicSnake":
@@ -315,6 +323,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                             classic = new SnakeProto(); 
                             gui.clip.stop(); 
                             SnakeProto.main();
+                            
                         break; 
 
                 case "About":
