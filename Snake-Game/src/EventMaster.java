@@ -323,7 +323,7 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                             classic = new SnakeProto(); 
                             gui.clip.stop(); 
                             SnakeProto.main();
-                            
+
                         break; 
 
                 case "About":
@@ -350,6 +350,9 @@ public class EventMaster extends JFrame implements ActionListener, MouseListener
                 
                 case "settings":
                     System.out.println("Attempting to open settings upon NAVBAR, settings button");
+
+                    // Pop the status notice
+                    gui.handleInDevelopmentStatus__prompt();
                     break; 
                 
                 case "menu":
