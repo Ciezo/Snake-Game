@@ -9,4 +9,4 @@ echo -e "\n \n"
 echo -e "██████████████████████████████████████████████████████████████████"
 echo -e "Attempting to build an executable file.    ::      Format ==> .jar"
 echo -e "██████████████████████████████████████████████████████████████████"
-jar -cvfe mmmmmSnekkk_v0.1.jar src/Main.java src bin bin/Main*.class assets sfxpack 
+jar -cvfe mmmmmSnekkk_v0.1.jar src/Main bin/Main.class bin/*.class src bin assets sfxpack 
