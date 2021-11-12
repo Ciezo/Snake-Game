@@ -33,9 +33,6 @@ javac -cp ../bin Main.java
 
 mv *.class ../bin 
 
-
-
-
 # -------------------------------------------------------------------------
 echo -e "Removing unnecessary artifact"
 cd ../bin
